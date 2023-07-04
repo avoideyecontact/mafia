@@ -321,3 +321,85 @@ a{
   margin-top: 200px;
   font-size: 42px;
 }
+//companies
+.companies-page{
+  margin-top: 110px;
+
+}
+.companies-subheader{
+  height: 833px;
+  width: 100%;
+  background: url("../public/Img/CompaniesBg.png") center center/cover no-repeat;
+  position: relative;
+  &-title{
+    color: #FFF;
+    font-size: 64px;
+    font-family: "Roboto Condensed";
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    text-align: center;
+    z-index: 0;
+    bottom: 40px;
+  }
+}
+.companies-cards{
+  background: #FFFDF0;
+  padding: 70px;
+  min-height: 1000px;
+  gap: 54px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  &-card{
+    width: 1200px;
+    height: 421px;
+    border: 6px solid #000;
+    background: rgba(217, 217, 217, 0.00);
+    display: flex;
+    position: relative;
+  }
+}
+.card{
+  &-image{
+    height: 421px;
+  }
+  &-main-title{
+    color: #000;
+    font-size: 64px;
+    font-family:"Roboto Condensed";
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    text-align: center;
+  }
+  &-main-subtitle{
+    color: #000;
+    font-size: 32px;
+    font-family:"Roboto Condensed";
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    text-align: center;
+    margin-top: 60px  ;
+  }
+  &-button{
+    width: 368px;
+    height: 82px;
+    color: #FFF;
+    font-size: 48px;
+    font-family:"Roboto Condensed";
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    background-color: black;
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+  }
+}

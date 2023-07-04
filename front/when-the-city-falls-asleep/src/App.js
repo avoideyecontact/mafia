@@ -9,6 +9,7 @@ import {
     Route,
     Routes,
 } from 'react-router-dom';
+import CompaniesPage from "./Pages/CompaniesPage";
 
 function App() {
   return (
@@ -16,7 +17,8 @@ function App() {
             <Header/>
 
             <Routes>
-                <Route exact path="/" element={<MainPage></MainPage>}/>
+                <Route exact path="/" element={<MainPage/>}/>
+                <Route exact path="/companies" element={<CompaniesPage/>}/>
             </Routes>
 
 
