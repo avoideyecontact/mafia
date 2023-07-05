@@ -2,6 +2,7 @@ import React,{useLayoutEffect} from 'react';
 import MainSubheader from "../Modules/MainSubheader";
 import CounterModule from "../Modules/CounterModule";
 import BloodTrailSection from "../Modules/BloodTrailSection";
+import OurFamilies from '../Modules/OurFamilies';
 
 const MainPage = () => {
     useLayoutEffect(() => {
@@ -12,6 +13,7 @@ const MainPage = () => {
             <MainSubheader/>
             <CounterModule/>
             <BloodTrailSection/>
+            <OurFamilies/>
         </>
     );
 };
