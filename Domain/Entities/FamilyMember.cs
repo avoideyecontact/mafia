@@ -1,14 +1,25 @@
-﻿using Domain.Common;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Domain.Entities
+namespace Domain;
+
+public partial class FamilyMember
 {
-    public class FamilyMember : Entity
-    {
+    public int Id { get; set; }
 
-    }
+    public int MafiaFamilyId { get; set; }
+
+    public string FirstName { get; set; } = null!;
+
+    public string SecondName { get; set; } = null!;
+
+    public int Age { get; set; }
+
+    public int Rank { get; set; }
+
+    public int? OrganizationId { get; set; }
+
+    public virtual MafiaFamily MafiaFamily { get; set; } = null!;
+
+    public virtual Organization? Organization { get; set; }
 }

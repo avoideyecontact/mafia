@@ -1,16 +1,25 @@
-﻿using Domain.Common;
-using Domain.Enums;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Domain.Entities
+namespace Domain;
+
+public partial class Organization
 {
-    public class Organization : Entity
-    {
-        public OrganizationTypes OrganizationTypeId { get; private set; }
+    public int Id { get; set; }
 
-    }
+    public int? OrganizationTypeId { get; set; }
+
+    public string Name { get; set; } = null!;
+
+    public int? Income { get; set; }
+
+    public int? Expenses { get; set; }
+
+    public int? Percent { get; set; }
+
+    public int? CollectorId { get; set; }
+
+    public virtual ICollection<FamilyMember> FamilyMembers { get; set; } = new List<FamilyMember>();
+
+    public virtual OrganizationType? OrganizationType { get; set; }
 }

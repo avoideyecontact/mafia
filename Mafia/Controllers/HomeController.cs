@@ -1,4 +1,6 @@
-﻿using Mafia.Models;
+﻿using Domain;
+using Domain.Persistance;
+using Mafia.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -13,7 +15,17 @@ namespace Mafia.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public string GetAllMafiaFamilies()
+        {
+            return Infrastructure.Methods.GetAllMafiaFamiliesAsString();
+        }
+
+        public string GetAllOrganizations()
+        {
+            return Infrastructure.Methods.GetAllOrganizationsAsString();
+        }
+
+        public ActionResult Index()
         {
             return View();
         }

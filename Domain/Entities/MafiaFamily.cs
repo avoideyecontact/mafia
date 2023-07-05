@@ -1,13 +1,13 @@
-﻿using Domain.Common;
+﻿using System;
+using System.Collections.Generic;
 
-namespace Domain.Entities
+namespace Domain;
+
+public partial class MafiaFamily
 {
-    public class MafiaFamily : Entity
-    {
-        public Guid Id { get; private set; }
+    public int Id { get; set; }
 
-        public string Name { get; private set; }
+    public string Name { get; set; } = null!;
 
-        public ICollection<FamilyMember> FamilyMembers { get; private set; }
-    }
+    public virtual ICollection<FamilyMember> FamilyMembers { get; set; } = new List<FamilyMember>();
 }
