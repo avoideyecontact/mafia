@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using Domain.Entities;
+using Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 
-namespace Domain;
+namespace Domain.Persistance;
 
 public partial class MafiaContext : DbContext
 {

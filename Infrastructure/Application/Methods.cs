@@ -44,6 +44,12 @@ namespace Infrastructure
             return jsonOrganizations;
         }
 
+        public static string GetMafiaFamilyByIdAsString(int id)
+        {
+            MafiaFamily family = context.MafiaFamilies.Where(p => (p.Id == id)).Single();
+            return JsonSerializer.Serialize(family, options);
+        }
+
         public static string GetOrganizationByIdAsString(int id)
         {
             Organization organization = context.Organizations.Where(p => (p.Id == id)).Single();
