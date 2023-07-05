@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using Domain.Entities;
+using Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 
 namespace Domain.Persistance;
@@ -38,17 +40,13 @@ public partial class MafiaContext : DbContext
             entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.FirstName).HasMaxLength(50);
             entity.Property(e => e.MafiaFamilyId).HasColumnName("MafiaFamily_Id");
-            entity.Property(e => e.OrganizationId).HasColumnName("Organization_Id");
+            entity.Property(e => e.RankId).HasColumnName("Rank_ID");
             entity.Property(e => e.SecondName).HasMaxLength(50);
 
-            entity.HasOne(d => d.MafiaFamily).WithMany(p => p.FamilyMembers)
-                .HasForeignKey(d => d.MafiaFamilyId)
+            entity.HasOne(d => d.Rank).WithMany(p => p.FamilyMembers)
+                .HasForeignKey(d => d.RankId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FamilyMembers_MafiaFamily_Id_fkey");
-
-            entity.HasOne(d => d.Organization).WithMany(p => p.FamilyMembers)
-                .HasForeignKey(d => d.OrganizationId)
-                .HasConstraintName("FamilyMembers_Organization_Id_fkey");
+                .HasConstraintName("FamilyMembers_Rank_ID_fkey");
         });
 
         modelBuilder.Entity<MafiaFamily>(entity =>
@@ -56,6 +54,7 @@ public partial class MafiaContext : DbContext
             entity.HasKey(e => e.Id).HasName("MafiaFamilies_pkey");
 
             entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.Description).HasMaxLength(200);
             entity.Property(e => e.Name).HasMaxLength(50);
         });
 
@@ -65,8 +64,13 @@ public partial class MafiaContext : DbContext
 
             entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.CollectorId).HasColumnName("Collector_Id");
+            entity.Property(e => e.Description).HasMaxLength(200);
             entity.Property(e => e.Name).HasMaxLength(50);
             entity.Property(e => e.OrganizationTypeId).HasColumnName("OrganizationType_Id");
+
+            entity.HasOne(d => d.Collector).WithMany(p => p.Organizations)
+                .HasForeignKey(d => d.CollectorId)
+                .HasConstraintName("Organizations_Collector_Id_fkey");
 
             entity.HasOne(d => d.OrganizationType).WithMany(p => p.Organizations)
                 .HasForeignKey(d => d.OrganizationTypeId)

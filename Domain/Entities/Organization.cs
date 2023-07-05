@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using Domain.Enums;
 
-namespace Domain;
+namespace Domain.Entities;
 
 public partial class Organization
 {
@@ -11,6 +12,8 @@ public partial class Organization
 
     public string Name { get; set; } = null!;
 
+    public string? Description { get; set; }
+
     public int? Income { get; set; }
 
     public int? Expenses { get; set; }
@@ -19,7 +22,7 @@ public partial class Organization
 
     public int? CollectorId { get; set; }
 
-    public virtual ICollection<FamilyMember> FamilyMembers { get; set; } = new List<FamilyMember>();
+    public virtual FamilyMember? Collector { get; set; }
 
     public virtual OrganizationType? OrganizationType { get; set; }
 }

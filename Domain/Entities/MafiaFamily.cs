@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Domain;
+namespace Domain.Entities;
 
 public partial class MafiaFamily
 {
@@ -9,5 +9,5 @@ public partial class MafiaFamily
 
     public string Name { get; set; } = null!;
 
-    public virtual ICollection<FamilyMember> FamilyMembers { get; set; } = new List<FamilyMember>();
+    public string? Description { get; set; }
 }
