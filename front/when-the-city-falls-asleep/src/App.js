@@ -10,6 +10,7 @@ import {
     Routes,
 } from 'react-router-dom';
 import CompaniesPage from "./Pages/CompaniesPage";
+import FamiliesPage from "./Pages/FamiliesPage";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
             <Routes>
                 <Route exact path="/" element={<MainPage/>}/>
                 <Route exact path="/companies" element={<CompaniesPage/>}/>
+                <Route exact path="/families" element={<FamiliesPage/>}/>
             </Routes>
 
 

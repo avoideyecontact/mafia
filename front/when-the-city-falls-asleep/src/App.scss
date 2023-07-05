@@ -68,13 +68,14 @@ nav a {
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 9;
+  z-index: 100009;
 
   /* Временно */
   display: none;
 }
 
 .modal-form__content {
+
   position: relative;
   padding-top: 105px;
   width: 1383px;
@@ -134,6 +135,12 @@ nav a {
   box-sizing: border-box;
   margin-bottom: 69px;
   border-radius: 10px;
+}
+.modal-income{
+  position: absolute;
+  bottom: 20px;
+  right: 100px;
+  font-size: 50px !important;
 }
 
 a{
@@ -230,7 +237,7 @@ a{
   background: #B01926;
   color: #FFF;
   font-size: 32px;
-  font-family: "Roboto Condensed";
+  font-family:'Roboto Condensed', Arial, Helvetica, sans-serif;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
@@ -244,7 +251,7 @@ a{
 .counter-module-title{
   color: #FFF;
   font-size: 44px;
-  font-family: "Roboto Condensed";
+  font-family:'Roboto Condensed', Arial, Helvetica, sans-serif;
   font-style: normal;
   font-weight: 500;
   line-height: 140px;
@@ -252,7 +259,7 @@ a{
 .counter-module-subtitle{
   color: #FFF;
   font-size: 32px;
-  font-family: Roboto Condensed;
+  font-family: 'Roboto Condensed', Arial, Helvetica, sans-serif;
   font-style: normal;
   font-weight: 500;
 }
@@ -270,7 +277,7 @@ a{
   gap: 40px;
   color: #FFF;
   font-size: 44px;
-  font-family:"Roboto Condensed";
+  font-family:'Roboto Condensed', Arial, Helvetica, sans-serif;
   font-style: normal;
   font-weight: 500;
 }
@@ -283,7 +290,7 @@ a{
   color: #FFF;
   text-align: center;
   font-size: 64px;
-  font-family: "Roboto Condensed";
+  font-family:'Roboto Condensed', Arial, Helvetica, sans-serif;
   font-style: normal;
   font-weight: 500;
   padding: 200px 50px 50px 0;
@@ -293,9 +300,8 @@ a{
   height: 400px;
   position: absolute;
   top: -1px;
-  left: 0px;
+  left: 0;
   z-index: 2;
-  user-drag: none;
   -webkit-user-drag: none;
   user-select: none;
   -moz-user-select: none;
@@ -303,11 +309,11 @@ a{
   -ms-user-select: none;
 }
 .blood-trail-link{
-  margin: 0px;
+  margin: 0;
   text-decoration: underline;
   text-align: center;
   font-size: 64px;
-  font-family: "Roboto Condensed";
+  font-family:'Roboto Condensed', Arial, Helvetica, sans-serif;
   font-style: normal;
   font-weight: 500;
   z-index: 3 ;
@@ -334,7 +340,7 @@ a{
   &-title{
     color: #FFF;
     font-size: 64px;
-    font-family: "Roboto Condensed";
+    font-family: 'Roboto Condensed', Arial, Helvetica, sans-serif;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
@@ -372,7 +378,7 @@ a{
   &-main-title{
     color: #000;
     font-size: 64px;
-    font-family:"Roboto Condensed";
+    font-family:'Roboto Condensed', Arial, Helvetica, sans-serif;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
@@ -381,7 +387,7 @@ a{
   &-main-subtitle{
     color: #000;
     font-size: 32px;
-    font-family:"Roboto Condensed";
+    font-family:'Roboto Condensed', Arial, Helvetica, sans-serif;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
@@ -393,7 +399,7 @@ a{
     height: 82px;
     color: #FFF;
     font-size: 48px;
-    font-family:"Roboto Condensed";
+    font-family:'Roboto Condensed', Arial, Helvetica, sans-serif;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
@@ -402,4 +408,100 @@ a{
     right: 20px;
     bottom: 20px;
   }
+}
+
+//FAMILIES PAGE FIX NEEDED transform to sccs
+
+.family__welcome {
+  width: 100%;
+  height: 953px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(86, 78, 78, 0.447917) 30.3%, rgba(39, 39, 39, 0.722831) 51.14%, #130000 100%), url("../public/Img/FamilyWelcome.png");
+}
+
+.family__welcome h2 {
+  margin: 0;
+  font-family: 'Roboto Condensed', Arial, Helvetica, sans-serif;
+  font-size: 64px;
+  font-weight: 500;
+  line-height: 75px;
+  text-align: center;
+  padding-top: 795px;
+  color: white;
+}
+.family__image{
+  width: 349px;
+  height: 349px;
+  border-radius: 349px;
+}
+.family__list {
+  padding: 60px;
+  max-width: 1281px;
+  margin: 0 auto;
+}
+
+.family__item {
+  color: black;
+  list-style: none;
+  width: 100%;
+  border: 6px solid #B01926;
+  border-radius: 30px;
+  padding: 35px 35px;
+  display: flex;
+  gap: 85px;
+  margin-bottom: 46px;
+  position: relative;
+}
+
+.family__item img {
+  width: 349px;
+  height: 349px;
+}
+
+.family__info {
+  display: flex;
+  flex-direction: column;
+}
+
+.family__item h3 {
+  font-family: 'Roboto Condensed', Arial, Helvetica, sans-serif;
+  font-size: 64px;
+  font-weight: 600;
+  line-height: 75px;
+  margin-bottom: 10px;
+}
+
+.family__item p {
+  font-family: 'Roboto Condensed', Arial, Helvetica, sans-serif;
+  font-size: 32px;
+  font-weight: 500;
+  line-height: 38px;
+  margin-bottom: 70px;
+}
+
+.family__item button {
+  font-family: 'Roboto Condensed', Arial, Helvetica, sans-serif;
+  font-size: 48px;
+  font-weight: 500;
+  line-height: 56px;
+  width: 368px;
+  height: 82px;
+  box-sizing: border-box;
+  background-color: #B01926;
+  border: none;
+  color: white;
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+}
+// стили для модалок
+.opened{
+  display: flex;
+  transition: 1s all;
+}
+.closed{
+  display: none;
+  transition: 1s all;
 }
