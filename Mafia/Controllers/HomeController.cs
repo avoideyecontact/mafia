@@ -25,6 +25,11 @@ namespace Mafia.Controllers
             return Infrastructure.Methods.GetAllOrganizationsAsString();
         }
 
+        public string GetOrganizationById(int id)
+        {
+            return Infrastructure.Methods.GetOrganizationByIdAsString(id);
+        }
+
         public ActionResult Index()
         {
             return View();

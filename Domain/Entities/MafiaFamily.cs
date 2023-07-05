@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Domain.Entities;
+namespace Domain;
 
 public partial class MafiaFamily
 {
@@ -10,4 +10,6 @@ public partial class MafiaFamily
     public string Name { get; set; } = null!;
 
     public string? Description { get; set; }
+
+    public string? ImageUrl { get; set; }
 }

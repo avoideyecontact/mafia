@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Domain.Entities;
-using Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 
-namespace Domain.Persistance;
+namespace Domain;
 
 public partial class MafiaContext : DbContext
 {
@@ -54,7 +52,10 @@ public partial class MafiaContext : DbContext
             entity.HasKey(e => e.Id).HasName("MafiaFamilies_pkey");
 
             entity.Property(e => e.Id).ValueGeneratedNever();
-            entity.Property(e => e.Description).HasMaxLength(200);
+            entity.Property(e => e.Description).HasMaxLength(300);
+            entity.Property(e => e.ImageUrl)
+                .HasMaxLength(300)
+                .HasColumnName("ImageURL");
             entity.Property(e => e.Name).HasMaxLength(50);
         });
 
@@ -64,7 +65,10 @@ public partial class MafiaContext : DbContext
 
             entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.CollectorId).HasColumnName("Collector_Id");
-            entity.Property(e => e.Description).HasMaxLength(200);
+            entity.Property(e => e.Description).HasMaxLength(300);
+            entity.Property(e => e.ImageUrl)
+                .HasMaxLength(300)
+                .HasColumnName("ImageURL");
             entity.Property(e => e.Name).HasMaxLength(50);
             entity.Property(e => e.OrganizationTypeId).HasColumnName("OrganizationType_Id");
 

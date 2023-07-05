@@ -8,8 +8,15 @@ namespace Infrastructure
 {
     public class Methods
     {
-        private static MafiaContext context = new MafiaContext();
-        private static JsonSerializerOptions options = new JsonSerializerOptions() 
+        /// <summary>
+        /// Create static MafiaContext to get Access to DataBase one time
+        /// </summary>
+        private static MafiaContext context = new();
+        
+        /// <summary>
+        /// Create static JsonSeriliazerOptions to economy memory
+        /// </summary>
+        private static JsonSerializerOptions options = new() 
         {
             Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Cyrillic),
             WriteIndented = true
@@ -32,9 +39,15 @@ namespace Infrastructure
             List<Organization> organizations = context.Organizations.ToList();
             foreach (var organization in organizations)
             {
-                jsonOrganizations += JsonSerializer.Serialize(organization) + "\n";
+                jsonOrganizations += JsonSerializer.Serialize(organization, options) + "\n";
             }
             return jsonOrganizations;
+        }
+
+        public static string GetOrganizationByIdAsString(int id)
+        {
+            Organization organization = context.Organizations.Where(p => (p.Id == id)).Single();
+            return JsonSerializer.Serialize(organization, options);
         }
     }
 }
