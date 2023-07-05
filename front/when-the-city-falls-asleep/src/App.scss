@@ -403,3 +403,50 @@ a{
     bottom: 20px;
   }
 }
+
+.our-families {
+  position: relative;
+  background-color: black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  white-space: pre;
+  margin: 0;
+}
+
+.our-families span {
+  font-family: 'Roboto Condensed', Arial, Helvetica, sans-serif;
+  font-size: 260px;
+  font-weight: 600;
+  line-height: 185px;
+  color: white;
+  position: relative;
+  transition: transform 0.3s ease;
+}
+
+.our-families span:nth-child(even) {
+  transform: translateX(-850px);
+}
+
+.our-families span:nth-child(odd) {
+  transform: translateX(275px);
+}
+
+.our-families img {
+  position: absolute;
+  top: 163px;
+}
+
+// Anim our_families
+.our-families:hover span {
+  transition: transform 0.3s ease;
+}
+
+.our-families:hover span:nth-child(even) {
+  transform: translateX(-925px);
+}
+
+.our-families:hover span:nth-child(odd) {
+  transform: translateX(350px);
+}
