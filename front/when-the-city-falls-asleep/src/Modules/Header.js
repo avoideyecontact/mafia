@@ -4,7 +4,7 @@ function Header() {
     return (
         <header className="header">
             <div className="header-wrapper center">
-                <a href="index.html" className="logo">The city is falling asleep...</a>
+                <Link to="/" className="logo">The city is falling asleep...</Link>
                 <ul className="menu">
                     <li><Link to="/" className="menu-item">Главная</Link></li>
                     <li><Link to="/companies" className="menu-item">Компании</Link></li>

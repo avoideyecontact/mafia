@@ -16,7 +16,7 @@ const FamilyList = () => {
         <ul className="family__list">
             {
                 familiesList.map((family)=>{
-                    return <FamilyItem key={family.Id} name={family.Name} imageURL={family.ImageURL} descrition={family.Description}/>
+                    return <FamilyItem key={family.Id} name={family.Name} imageURL={family.ImageUrl} descrition={family.Description}/>
                 })
             }
 

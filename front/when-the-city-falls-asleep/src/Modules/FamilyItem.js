@@ -5,7 +5,7 @@ const FamilyItem = (props) => {
     const [visibility, setVisibility] = useState("closed");
     return (
         <li className="family__item">
-            <img className="family__image" src={props.imageURL} alt="" />
+            <img className="family__image" src={props.imageURL} alt="companyImage" />
             <div className="family__info">
                 <h3>{props.name}</h3>
                 <p>{props.descrition}</p>
