@@ -17,7 +17,7 @@ const CompaniesCards = () => {
         <div className="companies-cards">
             {
                 companiesList.map((company)=>{
-                    return <CompaniesCard key={company.Id} companyType={company.OrganizationType_id} name={company.Name} description={company.Description} income={company.Income} collectorId={company.Collector_id} />
+                    return <CompaniesCard key={company.Id} companyType={company.OrganizationTypeId} name={company.Name} description={company.Description} income={company.Income} collectorId={company.CollectorId} />
                 })
             }
             <CompaniesCard/>
