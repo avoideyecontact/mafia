@@ -1,19 +1,25 @@
-import React from 'react';
+import React, {useState} from 'react';
+import CompaniesModal from "./CompaniesModal";
 
-const CompaniesCard = () => {
+const CompaniesCard = (props) => {
+    const [visibility,setVisibility] = useState("closed")
     return (
         <div className="companies-cards-card">
-            <img  className="card-image" src="../Img/ChildGarden.png" alt=""/>
+            <img  className="card-image" src="../../public/Img/ChildGarden.png" alt=""/>
             <div className="card-main">
                 <div className="card-main-title">
-                    Детский сад №10
+                    {props.name}
                 </div>
                 <div className="card-main-subtitle">
-                    Ребенок Аль-Маскорпоне однажды пожаловался отцу на манную кашу с комочками, с тех пор кухни там нет...
+                    {props.description}
                 </div>
-                <button className="card-button">
+                <button className="card-button" onClick={(event)=>{
+                    setVisibility(visibility === "closed"?"opened":"closed")
+                    console.log(visibility)
+                }}>
                     Подробнее...
                 </button>
+                <CompaniesModal visibility={visibility} setVisibility={setVisibility} name={props.name} income={props.income} collectorId={props.collectorId}/>
             </div>
         </div>
     );

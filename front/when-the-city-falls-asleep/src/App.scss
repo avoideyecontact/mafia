@@ -410,7 +410,7 @@ a{
   }
 }
 
-<<<<<<< HEAD
+//<<<<<<< HEAD
 //FAMILIES PAGE FIX NEEDED transform to sccs
 
 .family__welcome {
@@ -502,10 +502,10 @@ a{
   display: flex;
   transition: 1s all;
 }
-.closed{
+.closed {
   display: none;
   transition: 1s all;
-=======
+}
 .our-families {
   position: relative;
   background-color: black;
@@ -551,5 +551,4 @@ a{
 
 .our-families:hover span:nth-child(odd) {
   transform: translateX(350px);
->>>>>>> a74b710172a00d00ac4e1544b612b04de40c2ac1
 }
