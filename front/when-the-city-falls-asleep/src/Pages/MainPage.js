@@ -3,6 +3,7 @@ import MainSubheader from "../Modules/MainPage/MainSubheader";
 import CounterModule from "../Modules/MainPage/CounterModule/CounterModule";
 import BloodTrailSection from "../Modules/MainPage/BloodTrailSection";
 import OurFamilies from '../Modules/MainPage/OurFamilies';
+import Game from '../Game/Game';
 
 const MainPage = () => {
     useLayoutEffect(() => {
@@ -14,6 +15,7 @@ const MainPage = () => {
             <CounterModule/>
             <BloodTrailSection/>
             <OurFamilies/>
+            <Game/>
         </>
     );
 };
