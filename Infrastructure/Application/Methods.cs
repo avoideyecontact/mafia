@@ -1,5 +1,6 @@
 ﻿using Domain.Entities;
 using Domain.Persistance;
+using Microsoft.EntityFrameworkCore.Metadata;
 using System.Reflection.Metadata.Ecma335;
 using System.Text.Encodings.Web;
 using System.Text.Json;
@@ -13,7 +14,7 @@ namespace Infrastructure
         /// Create static MafiaContext to get Access to DataBase one time
         /// </summary>
         private static MafiaContext context = new();
-        
+
 
         /*
           MafiaFamilies Queries
@@ -56,19 +57,22 @@ namespace Infrastructure
             return familyOrganizations;
         }
         
-
-        public static int CalculateFamilyIncome(int id)
+        public static float CalculateFamilyIncome(int FamilyId)
         {
-            /*
              
-            MafiaFamily family = context.MafiaFamilies.Where(p => (p.Id == id)).Single();
-            int familyIncomesSum = 0;
-            */
-            
+            List<Organization> FamilyOrganizations = GetAllOrganizationsByMafiaFamilyId(FamilyId);
+            float familyIncomesSum = 0;
+            foreach (Organization org in FamilyOrganizations)
+            {
+                if (org.Percent != null && org.Income != null)
+                {
+                    familyIncomesSum += (float)(org.Income / 100 * org.Percent);
+                }
+            }
 
-
-            return 0;
+            return familyIncomesSum;
         }
+
         /*
           MafiaFamilies Queries
         */
@@ -86,6 +90,40 @@ namespace Infrastructure
         {
             return context.FamilyMembers.Where(p => (p.Id == id)).Single();
         }
+
+        public static List<Organization> GetAllFamilyMemberOrganizations(int memberId)
+        {
+            return context.Organizations.Where(p => p.CollectorId == memberId).ToList();
+        }
+
+        public static void AddFamilyMember(int id, int MafiaFamilyId, string FirstName, string SecondName, int Age, int RankId)
+        {
+            context.FamilyMembers.Add(new FamilyMember
+            {
+                Id = id,
+                MafiaFamilyId = MafiaFamilyId,
+                FirstName = FirstName,
+                SecondName = SecondName,
+                Age = Age,
+                RankId = RankId
+            });
+            try
+            {
+                context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        public static void EditFamilyMemberFirstName(int id, string FirstName)
+        {
+            FamilyMember member = GetFamilyMemberById(id);
+            member.FirstName = FirstName;
+            context.SaveChanges();
+        }
+
         /*
           FamilyMembers Queries
         */
@@ -102,6 +140,40 @@ namespace Infrastructure
         public static Organization GetOrganizationById(int id)
         {
             return context.Organizations.Where(p => (p.Id == id)).Single();
+        }
+
+        public static void AddOrganization(int id, int OrganizationTypeId, string Name, string Description,
+            int Income, int Expences, int Percent, int CollectorId, string ImageURL)
+        {
+            if (Percent > 0 && Percent < 100 )
+            {
+                context.Organizations.Add(new Organization
+                {
+                    Id = id,
+                    OrganizationTypeId = OrganizationTypeId,
+                    Name = Name,
+                    Description = Description,
+                    Income = Math.Abs(Income),
+                    Expenses = Math.Abs(Expences),
+                    Percent = Percent,
+                    CollectorId = CollectorId,
+                    ImageUrl = ImageURL
+                });
+                try 
+                {
+                    context.SaveChanges();
+                }
+                catch (Exception ex) 
+                {
+                    Console.WriteLine(ex.ToString());
+                }
+            }
+        }
+
+        public static void EditOrganization(int id, int OrganizationTypeId, string Name, string Description,
+            int Income, int Expences, int Percent, int CollectorId, string ImageURL)
+        {
+
         }
         /*
           Organizations Queries
