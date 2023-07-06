@@ -1,6 +1,6 @@
 import React, {useLayoutEffect} from 'react';
-import Family from "../Modules/Family";
-import FamilyList from "../Modules/FamilyList";
+import Family from "../Modules/FamiliesPage/Family";
+import FamilyList from "../Modules/FamiliesPage/FamilyList";
 
 const FamiliesPage = () => {
     useLayoutEffect(() => {

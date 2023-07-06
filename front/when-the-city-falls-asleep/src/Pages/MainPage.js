@@ -1,8 +1,8 @@
 import React,{useLayoutEffect} from 'react';
-import MainSubheader from "../Modules/MainSubheader";
-import CounterModule from "../Modules/CounterModule";
-import BloodTrailSection from "../Modules/BloodTrailSection";
-import OurFamilies from '../Modules/OurFamilies';
+import MainSubheader from "../Modules/MainPage/MainSubheader";
+import CounterModule from "../Modules/MainPage/CounterModule/CounterModule";
+import BloodTrailSection from "../Modules/MainPage/BloodTrailSection";
+import OurFamilies from '../Modules/MainPage/OurFamilies';
 
 const MainPage = () => {
     useLayoutEffect(() => {

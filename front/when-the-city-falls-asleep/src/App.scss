@@ -22,6 +22,7 @@ body {
   font-weight: 500;
 }
 
+
 .center {
   max-width: 1440px;
   margin: 0 auto;
@@ -71,13 +72,27 @@ nav a {
   height: 100%;
   color: white;
   background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
+
   justify-content: center;
   align-items: center;
   z-index: 100009;
 
-  /* Временно */
   display: none;
+}
+.modal-form-button{
+  width: 400px;
+  height: 60px;
+  background: #B01926;
+  color: white;
+  font-family: 'Roboto Condensed', Arial, Helvetica, sans-serif;
+  font-size: 30px;
+  transition: 0.3s all;
+  &:hover {
+    box-shadow: inset 0 0 100px 100px rgba(255, 255, 255, 0.1);
+    background: #FFFDF0;
+    color: black;
+
+  }
 }
 
 .modal-form__content {
@@ -139,7 +154,7 @@ nav a {
   width: 868px;
   height: 71px;
   box-sizing: border-box;
-  margin-bottom: 69px;
+  margin-bottom: 50px;
   border-radius: 10px;
 }
 .modal-income{
@@ -247,6 +262,13 @@ a{
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+  transition: 0.3s all;
+}
+.button:hover {
+  box-shadow: inset 0 0 100px 100px rgba(255, 255, 255, 0.1);
+  background: #FFFDF0;
+  color: black;
+
 }
 // COUNTER MODULE
 .counter-module{
@@ -286,6 +308,15 @@ a{
   font-family:'Roboto Condensed', Arial, Helvetica, sans-serif;
   font-style: normal;
   font-weight: 500;
+  &:hover{
+    animation:wiggle 0.5s;
+  }
+}
+@keyframes wiggle {
+  0% { transform: rotate(0deg); }
+  33% { transform: rotate(-5deg); }
+  66% { transform: rotate(5deg); }
+  100% { transform: rotate(0deg); }
 }
 
 // BLOOD TRAIL SECTION
@@ -323,6 +354,11 @@ a{
   font-style: normal;
   font-weight: 500;
   z-index: 3 ;
+  transition: color .3s ease-in-out, box-shadow .3s ease-in-out;
+}
+.blood-trail-link:hover {
+  box-shadow: inset 750px 0 0 0 white;
+  color: black;
 }
 .blood-trail-title{
   display: flex;
@@ -560,4 +596,98 @@ a{
 
 .our-families:hover span:nth-child(odd) {
   transform: translateX(350px);
+}
+///
+
+.options-subheader{
+  position: relative;
+  width: 100%;
+  height: 953px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(86, 78, 78, 0.447917) 30.3%, rgba(39, 39, 39, 0.722831) 51.14%, #130000 100%), url("../public/Img/OptionsPageBg.png");
+}
+.options-subheader-text{
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  text-align: center;
+  z-index: 0;
+  bottom: 76px;
+  color: #FFF;
+  font-family: 'Roboto Condensed', Arial, Helvetica, sans-serif;
+  font-size: 64px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+.options-selector{
+  width: 1202px;
+  height: 675px;
+  margin: 100px auto;
+  background: #B01926;
+  border-radius: 40px;
+  padding: 40px;
+  position: relative;
+
+  &-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  &-title{
+
+  }
+  &-search{
+    border-radius: 20px;
+    background: #FFF;
+    width: 558px;
+    height: 50px;
+  }
+  &-title{
+    font-family: 'Roboto Condensed', Arial, Helvetica, sans-serif;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 500;
+    color: #FFFFFF;
+  }
+  &-list{
+    width: 1080px;
+    height: 441px;
+    border-radius: 10px;
+    background: #FFF;
+    position: absolute;
+    bottom: 110px;
+    left: 60px;
+    overflow-y: scroll;
+    &-item{
+      height: 50px;
+      width: 100%;
+
+      border-bottom: 2px black solid;
+
+      &-title{
+        text-align: center;
+      }
+    }
+  }
+  //scrollbar
+  ::-webkit-scrollbar {
+    width: 20px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border: 20px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
 }

@@ -1,7 +1,7 @@
 import React from "react";
 import FamilyItem from "./FamilyItem";
 import axios from "axios";
-import Skeleton from "./Skeleton";
+import Skeleton from "../Skeleton";
 
 const FamilyList = () => {
     const [familiesList, setFamiliesList] = React.useState([{},{},{},{}]);
@@ -13,6 +13,8 @@ const FamilyList = () => {
             setFamiliesList(Array.from(response.data));
             console.log(response.data);
             setContentLoaded(true)
+        }).catch((e)=>{
+            console.log(e)
         })
     },[]);
     return (

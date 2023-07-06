@@ -1,7 +1,7 @@
 import React from 'react';
 import CompaniesCard from "./CompaniesCard";
 import axios from "axios";
-import Skeleton from "./Skeleton";
+import Skeleton from "../Skeleton";
 
 
 const CompaniesCards = () => {
@@ -14,6 +14,8 @@ const CompaniesCards = () => {
             setCompaniesList(Array.from(response.data));
             console.log(response.data);
             setContentLoaded(true)
+        }).catch((e)=>{
+            console.log(e)
         })
     },[]);
     return (

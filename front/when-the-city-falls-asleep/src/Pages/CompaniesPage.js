@@ -1,6 +1,6 @@
 import React from 'react';
-import CompaniesSubheader from "../Modules/CompaniesSubheader";
-import CompaniesCards from "../Modules/CompaniesCards";
+import CompaniesSubheader from "../Modules/CompaniesPage/CompaniesSubheader";
+import CompaniesCards from "../Modules/CompaniesPage/CompaniesCards";
 import {useLayoutEffect} from "react";
 
 const CompaniesPage = () => {

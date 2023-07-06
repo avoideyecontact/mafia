@@ -4,7 +4,7 @@ const CounterModule = (props) => {
     const items = [
         {id:1,counter:"1085",img:"../Img/IconDeath.png",subtitle:"Убийств"},
         {id:2,counter:"3445",img:"../Img/IconSteal.png",subtitle:"Грабежей"},
-        {id:3,counter:"6234",img:"../Img/IconDeath.png",subtitle:"Стрелок"},
+        {id:3,counter:"6234",img:"../Img/IconGun.png",subtitle:"Стрелок"},
     ]
     return (
         <div className="counter-module">
