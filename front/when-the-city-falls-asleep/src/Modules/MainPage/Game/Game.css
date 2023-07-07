@@ -2,11 +2,11 @@
     position: relative;
     width: 100%;
     margin: 0 auto;
-    height: 700px;
+    height: 800px;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-image: url(../../public/Img/Game/game-bg.jpg);
+    background-image: url(../../../../public/Img/Game/game-bg.jpg);
     background-size: cover;
 }
 #game button {
