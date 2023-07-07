@@ -52,7 +52,12 @@ const Game = () => {
     useEffect(() => {
 
         const handleMouseMove = (event) => {
-
+            var game = gameRef.current;
+            var crosshair = crosshairRef.current;
+            const containerRect = game.getBoundingClientRect();
+            const x = event.clientX - containerRect.left - (crosshair.clientWidth / 2);
+            const y = event.clientY - containerRect.top - (crosshair.clientHeight / 2);
+            crosshair.style.transform = `translate(${x}px, ${y}px)`;
         }
     
         document.addEventListener('mousemove', handleMouseMove);
