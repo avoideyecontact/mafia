@@ -31,6 +31,8 @@ namespace Mafia.Controllers
         /*
           MafiaFamily Queries
         */
+
+        //---GET
         public string GetAllMafiaFamilies()
         {
             return JsonSerializer.Serialize(Infrastructure.Methods.GetAllMafiaFamilies(), options);
@@ -50,10 +52,28 @@ namespace Mafia.Controllers
             return JsonSerializer.Serialize(Infrastructure.Methods.GetAllOrganizationsByMafiaFamilyId(id), options);
         }
 
-        public string CalculateFamilyIncome(int FamilyId)
+        public string CalculateFamilyIncomeByFamilyId(int FamilyId)
         {
-            return JsonSerializer.Serialize(Infrastructure.Methods.CalculateFamilyIncome(FamilyId), options);
+            return JsonSerializer.Serialize(Infrastructure.Methods.CalculateFamilyIncomeByFamilyId(FamilyId), options);
         }
+
+        public string CalclulateFamilyIncomeByFamilyName(string familyName)
+        {
+            return JsonSerializer.Serialize(Infrastructure.Methods.CalculateFamilyIncomeByFamilyName(familyName), options);
+        }
+        //---GET
+        //--POST
+        public void AddMafiaFamily(int id, string Name, string Description, string ImageURL)
+        {
+            Infrastructure.Methods.AddMafiaFamily(id, Name, Description, ImageURL);
+        }
+
+        public void DeleteMafiaFamilyById(int id) 
+        {
+            Infrastructure.Methods.DeleteMafiaFamilyById(id);
+        }
+        //--POST
+
         /*
           MafiaFamily Queries
         */
@@ -61,6 +81,7 @@ namespace Mafia.Controllers
         /*
           FamilyMembers Queries
         */
+        //---GET
         public string GetFamilyMembers()
         {
             return JsonSerializer.Serialize(GetFamilyMembers(), options);
@@ -71,16 +92,23 @@ namespace Mafia.Controllers
             return JsonSerializer.Serialize(GetFamilyMemberById(id), options);
         }
 
+        //---GET
+        //--POST
         public void AddFamilyMember(int id, int MafiaFamilyId, string FirstName, string SecondName, int Age, int RankId)
         {
             Infrastructure.Methods.AddFamilyMember(id, MafiaFamilyId, FirstName, SecondName, Age, RankId);
+        }
+
+        public void DeleteFamilyMemberById(int id)
+        {
+            Infrastructure.Methods.DeleteFamilyMemberById(id);
         }
 
         public void EditFamilyMemberFirstName(int id, string FirstName)
         {
             Infrastructure.Methods.EditFamilyMemberFirstName(id, FirstName);
         }
-
+        //--POST
         /*
           FamilyMembers Queries
         */
@@ -88,22 +116,31 @@ namespace Mafia.Controllers
         /*
           Organizations Queries
         */
+        //---GET
         public string GetAllOrganizations()
         {
             return JsonSerializer.Serialize(Infrastructure.Methods.GetAllOrganizations(), options);
+        }
+
+        public string GetAllOrganizationsWithoutCollector()
+        {
+            return JsonSerializer.Serialize(Infrastructure.Methods.GetAllOrganizationsWithouotCollector(), options);
         }
 
         public string GetOrganizationById(int id)
         {
             return JsonSerializer.Serialize(Infrastructure.Methods.GetOrganizationById(id), options);
         }
+        //---GET
 
+        //--POST
         public void AddOrganization(int id, int OrganizationTypeId, string Name, string Description,
             int Income, int Expences, int Percent, int CollectorId, string ImageURL)
         {
             Infrastructure.Methods.AddOrganization(id, OrganizationTypeId, Name, Description,
             Income, Expences, Percent, CollectorId, ImageURL);
         }
+        //--POST
         /*
           Organizations Queries
         */
