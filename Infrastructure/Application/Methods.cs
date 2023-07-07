@@ -211,6 +211,27 @@ namespace Infrastructure
             member.FirstName = FirstName;
             context.SaveChanges();
         }
+
+        public static void EditFamilyMemberSecondName(int id, string SecondName)
+        {
+            FamilyMember member = GetFamilyMemberById(id);
+            member.SecondName = SecondName;
+            context.SaveChanges();
+        }
+        public static void EditFamilyMemberAge(int id, int Age)
+        {
+            FamilyMember member = GetFamilyMemberById(id);
+            member.Age = Age;
+            context.SaveChanges();
+        }
+
+        public static void EditFamilyRankId(int id, int RankId)
+        {
+
+            FamilyMember member = GetFamilyMemberById(id);
+            member.RankId = RankId;
+            context.SaveChanges();
+        }
         //---POST
 
         /*
