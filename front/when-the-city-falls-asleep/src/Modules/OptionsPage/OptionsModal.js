@@ -4,7 +4,7 @@ const OptionsModal = () => {
     const [handleChange,setHandeChange] = useState()
     return (
         <div>
-            <div className="modal-form opened">
+            <div className="modal-form closed">
                 <div className="modal-form__content">
                     <span className="modal-form__close"></span>
                     <h3>ДОБАВЛЕНИЕ ОРГАНИЗАЦИИ</h3>

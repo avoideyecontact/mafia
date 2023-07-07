@@ -417,6 +417,10 @@ a{
   &-image{
     height: 421px;
     width: 421px;
+    margin-right: 50px;
+  }
+  &-main{
+    width: 100%;
   }
   &-main-title{
     color: #000;
@@ -426,6 +430,7 @@ a{
     font-weight: 600;
     line-height: normal;
     text-align: center;
+    margin: 0 auto;
   }
   &-main-subtitle{
     color: #000;
@@ -435,7 +440,7 @@ a{
     font-weight: 500;
     line-height: normal;
     text-align: center;
-    margin-top: 60px  ;
+    width: 100%;
   }
   &-button{
     width: 368px;
@@ -495,6 +500,7 @@ a{
   padding: 35px 35px;
   display: flex;
   gap: 85px;
+  align-items: center;
   margin-bottom: 46px;
   position: relative;
 }
@@ -522,7 +528,7 @@ a{
   font-size: 32px;
   font-weight: 500;
   line-height: 38px;
-  margin-bottom: 70px;
+  margin-bottom: 150px;
 }
 
 .family__item button {
@@ -690,53 +696,4 @@ a{
   ::-webkit-scrollbar-thumb:hover {
     background: #555;
   }
-}
-
-#game {
-  position: relative;
-  width: 100%;
-  margin: 0 auto;
-  height: 700px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-image: url(../public/Img/game-bg.jpg);
-  background-size: cover;
-}
-#game button {
-  border: none;
-  padding: 20px;
-  font-size: 30px;
-  color: white;
-  background-color: #B01926;
-  cursor: pointer;
-  transition: all 0.3s;
-  z-index: 3;
-  box-shadow: 0px 4px 4px 0px #00000040 inset;
-  font-family:"Roboto Condensed", Arial, Helvetica, sans-serif;
-}
-#game button:hover {
-  color: #B01926;
-  background-color: white;
-  border: 5px solid #B01926;
-  box-sizing: border-box;
-  transition: all 0.3s;
-}
-#crosshair {
-  position: absolute;
-  transform: translate(-50%, -50%);
-  user-select: none;
-  pointer-events: none;
-  top: 50%;
-  left: 50%;
-  z-index: 2;
-  display: none;
-}
-#score {
-  position: absolute;
-  top: 25px;
-  right: 25px;
-  font-size: 40px;
-  user-select: none;
-  font-family:"Roboto Condensed", Arial, Helvetica, sans-serif;
 }
