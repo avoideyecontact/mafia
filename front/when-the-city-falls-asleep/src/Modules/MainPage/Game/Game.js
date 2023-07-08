@@ -60,10 +60,11 @@ const Game = () => {
             crosshair.style.transform = `translate(${x}px, ${y}px)`;
         }
     
-        document.addEventListener('mousemove', handleMouseMove);
+        var game = gameRef.current;
+        game.addEventListener('mousemove', handleMouseMove);
     
         return () => {
-          document.removeEventListener('mousemove', handleMouseMove);
+            game.removeEventListener('mousemove', handleMouseMove);
         };
       }, []);
 
