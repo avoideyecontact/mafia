@@ -8,8 +8,19 @@ namespace Domain.Persistance;
 
 public partial class MafiaContext : DbContext
 {
-    public MafiaContext()
+
+    private static MafiaContext instance;
+    private MafiaContext()
     {
+    }
+
+    public static MafiaContext getInstance()
+    {
+        if (instance == null)
+        {
+            instance = new MafiaContext();
+        }
+        return instance;
     }
 
     public MafiaContext(DbContextOptions<MafiaContext> options)
