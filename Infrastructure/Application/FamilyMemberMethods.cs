@@ -10,7 +10,7 @@ namespace Infrastructure
 {
     public class FamilyMemberMethods
     {
-        private static readonly MafiaContext context = MafiaContext.getInstance();
+        private static readonly MafiaContext context = new MafiaContext();
 
         //---GET
         public static List<FamilyMember> GetAllFamilyMembers()

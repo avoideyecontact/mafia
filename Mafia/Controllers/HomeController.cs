@@ -1,13 +1,16 @@
 ﻿using Domain;
 using Domain.Entities;
 using Domain.Persistance;
+using Infrastructure;
 using Mafia.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Text.Unicode;
+using System.Xml.Linq;
 
 namespace Mafia.Controllers
 {
@@ -23,6 +26,7 @@ namespace Mafia.Controllers
             Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Cyrillic),
             WriteIndented = true
         };
+        private readonly MafiaContext context = new ();
 
         public HomeController(ILogger<HomeController> logger)
         {
@@ -36,67 +40,140 @@ namespace Mafia.Controllers
         //---GET
         public string GetAllMafiaFamilies()
         {
-            return JsonSerializer.Serialize(Infrastructure.MafiaFamilyMethods.GetAllMafiaFamilies(), options);
+            return JsonSerializer.Serialize(context.MafiaFamilies.ToList(), options);
         }
         public string GetMafiaFamilyById(int id)
         {
-            return JsonSerializer.Serialize(Infrastructure.MafiaFamilyMethods.GetMafiaFamilyById(id), options);
+            return JsonSerializer.Serialize(context.MafiaFamilies.Where(p => (p.Id == id)).Single(), options);
         }
 
         public string GetMafiaFamilyByName(string name)
         {
-            return JsonSerializer.Serialize(Infrastructure.MafiaFamilyMethods.GetMafiaFamilyByName(name), options);
+            return JsonSerializer.Serialize(context.MafiaFamilies.Where(p => p.Name == name).Single(), options);
         }
 
         public string GetAllFamilyMembersByMafiaFamiylyId(int id)
         {
-            return JsonSerializer.Serialize(Infrastructure.MafiaFamilyMethods.GetAllFamilyMembersByMafiaFamiylyId(id), options);
+            List<FamilyMember> members = context.FamilyMembers.Where(p => p.MafiaFamilyId == id).ToList();
+            return JsonSerializer.Serialize(members, options);
         }
 
         public string GetAllOrganizationsByMafiaFamilyId(int id)
         {
-            return JsonSerializer.Serialize(Infrastructure.MafiaFamilyMethods.GetAllOrganizationsByMafiaFamilyId(id), options);
+            List < FamilyMember > members = context.FamilyMembers.Where(p => p.MafiaFamilyId == id).ToList();
+
+            List<Organization> organizations = context.Organizations.ToList();
+            List<Organization> familyOrganizations = new List<Organization>();
+
+            foreach (Organization organization in organizations)
+            {
+                foreach (FamilyMember member in members)
+                {
+                    if (organization.CollectorId == member.Id)
+                    {
+                        familyOrganizations.Add(organization);
+                    }
+                }
+            }
+            return JsonSerializer.Serialize(familyOrganizations, options);
         }
 
         public string GetAllOrganizationsByMafiaFamilyName(string name)
         {
-            return JsonSerializer.Serialize(Infrastructure.MafiaFamilyMethods.GetAllOrganizationsByMafiaFamilyName(name), options);
+            List<FamilyMember> members = context.MafiaFamilies.Where(p => (p.Name == name)).Single().FamilyMembers.ToList();
+
+            List<Organization> organizations = context.Organizations.ToList();
+            List<Organization> familyOrganizations = new List<Organization>();
+
+            foreach (Organization organization in organizations)
+            {
+                foreach (FamilyMember member in members)
+                {
+                    if (organization.CollectorId == member.Id)
+                    {
+                        familyOrganizations.Add(organization);
+                    }
+                }
+            }
+            return JsonSerializer.Serialize(familyOrganizations, options);
         }
 
-        public string CalculateFamilyIncomeByFamilyId(int FamilyId)
+        public string CalculateFamilyIncomeByFamilyId(int id)
         {
-            return JsonSerializer.Serialize(Infrastructure.MafiaFamilyMethods.CalculateFamilyIncomeByFamilyId(FamilyId), options);
+            List<Organization> familyOrganization = new List<Organization>();
+            List<FamilyMember> members = context.FamilyMembers.Where(p => p.MafiaFamilyId == id).ToList();
+            List<Organization> organizations = context.Organizations.ToList();
+            foreach (Organization organization in organizations)
+            {
+                foreach (FamilyMember member in members)
+                {
+                    if (organization.CollectorId == member.Id)
+                    {
+                        familyOrganization.Add(organization);
+                    }
+                }
+            }
+            float sum = 0;
+            foreach (Organization org in familyOrganization)
+            {
+                sum += (float)(org.Income / 100 * org.Percent);
+            }
+
+            return JsonSerializer.Serialize(sum, options); 
         }
 
+        /*
         public string CalclulateFamilyIncomeByFamilyName(string familyName)
         {
             return JsonSerializer.Serialize(Infrastructure.MafiaFamilyMethods.CalculateFamilyIncomeByFamilyName(familyName), options);
         }
+        */
         //---GET
         //--POST
         public void AddMafiaFamily(string Name)
         {
-            Infrastructure.MafiaFamilyMethods.AddMafiaFamily(Name);
+            context.Add(new MafiaFamily
+            {
+                Name = Name,
+                Description = "Эта семья молодая, мы ничего о ней пока не знаем",
+                ImageUrl = "../Img/NonameFamily.png"
+            });
+            try
+            {
+                context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"{ex.Message}");
+            };
         }
 
         public void DeleteMafiaFamilyById(int id) 
         {
-            Infrastructure.MafiaFamilyMethods.DeleteMafiaFamilyById(id);
+            try
+            {
+                context.Remove(GetMafiaFamilyById(id));
+                context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"{ex.Message}");
+            }
         }
 
         public void EditMafiaFamilyName(int id, string Name)
         {
-
+            Infrastructure.MafiaFamilyMethods.EditMafaFamilyName(id, Name);
         }
 
         public void EditMafiaFamilyDescription(int id, string Description)
         {
-
+            Infrastructure.MafiaFamilyMethods.EditMafiaFamilyDescription(id, Description);
         }
 
         public void EditMafiaFamilyImageUrl(int id, string ImageUrl)
         {
-
+            Infrastructure.MafiaFamilyMethods.EditMafiaFamilyImageUrl(id, ImageUrl);
         }
 
         //--POST
@@ -111,12 +188,12 @@ namespace Mafia.Controllers
         //---GET
         public string GetAllFamilyMembers()
         {
-            return JsonSerializer.Serialize(Infrastructure.FamilyMemberMethods.GetAllFamilyMembers(), options);
+            return JsonSerializer.Serialize(context.FamilyMembers.ToList(), options);
         }
 
         public string GetFamilyMemberById(int id)
         {
-            return JsonSerializer.Serialize(Infrastructure.FamilyMemberMethods.GetFamilyMemberById(id), options);
+            return JsonSerializer.Serialize(context.FamilyMembers.Where(p => p.Id == id).Single(), options);
         }
 
         //---GET
@@ -124,12 +201,35 @@ namespace Mafia.Controllers
         //--POST
         public void AddFamilyMember(int MafiaFamilyId, string FirstName, string SecondName, int Age, int RankId)
         {
-            Infrastructure.FamilyMemberMethods.AddFamilyMember(MafiaFamilyId, FirstName, SecondName, Age, RankId);
+            context.FamilyMembers.Add(new FamilyMember
+            {
+                MafiaFamilyId = MafiaFamilyId,
+                FirstName = FirstName,
+                SecondName = SecondName,
+                Age = Age,
+                RankId = RankId
+            });
+            try
+            {
+                context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"{ex.Message}");
+            }
         }
 
         public void DeleteFamilyMemberById(int id)
         {
-            Infrastructure.FamilyMemberMethods.DeleteFamilyMemberById(id);
+            try
+            {
+                context.FamilyMembers.Remove(context.FamilyMembers.Where(p => p.Id == id).Single());
+                context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"{ex.Message}");
+            }
         }
 
         public void EditFamilyMemberFirstName(int id, string FirstName)
@@ -162,24 +262,50 @@ namespace Mafia.Controllers
         //---GET
         public string GetAllOrganizations()
         {
-            return JsonSerializer.Serialize(Infrastructure.OrganizationMethods.GetAllOrganizations(), options);
+            return JsonSerializer.Serialize(context.Organizations.ToList(), options);
         }
 
         public string GetAllOrganizationsWithoutCollector()
         {
-            return JsonSerializer.Serialize(Infrastructure.OrganizationMethods.GetAllOrganizationsWithouotCollector(), options);
+            return JsonSerializer.Serialize(context.Organizations.Where(p => p.CollectorId == null).ToList(), options);
         }
 
         public string GetOrganizationById(int id)
         {
-            return JsonSerializer.Serialize(Infrastructure.OrganizationMethods.GetOrganizationById(id), options);
+            return JsonSerializer.Serialize(context.Organizations.Where(p => (p.Id == id)).Single(), options);
         }
         //---GET
 
         //--POST
         public void AddOrganization(string Name, int Income, int? FamilyId = null)
         {
-            Infrastructure.OrganizationMethods.AddOrganization(Name, Income, FamilyId);
+            int membersCount = 1;
+            List<FamilyMember> members = new List<FamilyMember>();
+            if (FamilyId != null)
+            {
+                members = members = context.FamilyMembers.Where(p => p.MafiaFamilyId == FamilyId).ToList();
+                membersCount = (members.Count() == 0 ? 1 : members.Count);
+            }
+
+            context.Organizations.Add(new Organization
+            {
+                OrganizationTypeId = 5,
+                Name = Name,
+                Description = "Мы пока что мало знаем о данной организации",
+                Income = Income,
+                Expenses = Income / (1 + new Random(1).Next(10)),
+                Percent = 10,
+                CollectorId = FamilyId == null || membersCount == 0 ? null : members[new Random(1).Next(members.Count) % membersCount].Id,
+                ImageUrl = "../Img/NonameCompany.png"
+            });
+            try
+            {
+                context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
         }
 
         /*

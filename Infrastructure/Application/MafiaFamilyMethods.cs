@@ -1,5 +1,6 @@
 ﻿using Domain.Entities;
 using Domain.Persistance;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace Infrastructure
     public class MafiaFamilyMethods
     {
         //---GET
-        private static readonly MafiaContext context = MafiaContext.getInstance();
+        private static readonly MafiaContext context = new MafiaContext();
 
         public static List<MafiaFamily> GetAllMafiaFamilies()
         {
@@ -34,8 +35,9 @@ namespace Infrastructure
 
         public static List<FamilyMember> GetAllFamilyMembersByMafiaFamiylyId(int id)
         {
-            List<FamilyMember> familyMembers = context.FamilyMembers.Where(p => (p.MafiaFamilyId == id)).ToList();
-            return familyMembers;
+            MafiaFamily mafiaFamily = GetMafiaFamilyById(id);
+            if (mafiaFamily != null) return mafiaFamily.FamilyMembers.ToList();
+            return new List<FamilyMember>();
         }
 
 
@@ -61,33 +63,46 @@ namespace Infrastructure
 
         public static List<Organization> GetAllOrganizationsByMafiaFamilyName(string name)
         {
-            MafiaFamily family = GetMafiaFamilyByName(name);
-            List<Organization> familyOrganizations = new List<Organization>();
-            if (family != null)
+            List<Organization> familyOrganizations = new();
+            try
             {
-                List<FamilyMember> members = GetAllFamilyMembersByMafiaFamiylyId(family.Id);
-                List<Organization> organizations = OrganizationMethods.GetAllOrganizations();
-                foreach (Organization organization in organizations)
+                MafiaFamily family = GetMafiaFamilyByName(name);
+                if (family != null)
                 {
-                    foreach (FamilyMember member in members)
+                    List<FamilyMember> members = GetAllFamilyMembersByMafiaFamiylyId(family.Id);
+                    List<Organization> organizations = OrganizationMethods.GetAllOrganizations();
+                    foreach (Organization organization in organizations)
                     {
-                        if (organization.CollectorId == member.Id)
+                        foreach (FamilyMember member in members)
                         {
-                            familyOrganizations.Add(organization);
+                            if (organization.CollectorId == member.Id)
+                            {
+                                familyOrganizations.Add(organization);
+                            }
                         }
                     }
                 }
             }
-            for (int i = 0; i < familyOrganizations.Count; i++)
-                Console.WriteLine(familyOrganizations[i].Name);
+            catch (Exception ex) 
+            { 
+                Console.WriteLine(ex.Message);
+            }
             return familyOrganizations;
         }
 
         public static float CalculateFamilyIncomeByFamilyId(int FamilyId)
         {
-            List<Organization> FamilyOrganizations = GetAllOrganizationsByMafiaFamilyId(FamilyId);
+            List<FamilyMember> members = context.FamilyMembers.Where(p => (p.MafiaFamilyId == FamilyId)).ToList();
+            List<Organization> organizations = new ();
+            foreach (FamilyMember member in members)
+            {
+                foreach (Organization org in member.Organizations)
+                {
+                    organizations.Add(org);
+                }
+            }
             float familyIncomesSum = 0;
-            foreach (Organization org in FamilyOrganizations)
+            foreach (Organization org in organizations)
             {
                 if (org.Percent != null && org.Income != null)
                 {
