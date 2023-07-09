@@ -771,7 +771,17 @@ a{
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
+  transition: 0.2s all;
 }
+.select-family:hover{
+  color: black;
+  background: white;
+  -webkit-box-shadow:inset 0px 0px 0px 2px black;
+  -moz-box-shadow:inset 0px 0px 0px 2px black;
+  box-shadow:inset 0px 0px 0px 2px black;
+}
+
 .options-position{
   position: absolute;
   margin-left: auto;
@@ -781,4 +791,31 @@ a{
   text-align: center;
   top: 1080px;
   z-index: 10;
+}
+.options-selector-list-item-close{
+  position: relative;
+}
+.options-selector-list-item-close::after {
+  content: 'x';
+  position: absolute;
+  font-size: 45px;
+  color: red;
+  width: 20px;
+  height: 20px;
+  left: 1000px;
+  top: -90px;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+.options-selector-error{
+  text-align: center;
+  font-size:60px;
+}
+.underlined{
+  border-bottom: 2px black solid;
+  transition: 0.3s all;
+  cursor: pointer;
+}
+.underlined:hover{
+  color: red;
 }
