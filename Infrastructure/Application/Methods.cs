@@ -338,7 +338,7 @@ namespace Infrastructure
         {
 
             FamilyMember member = GetFamilyMemberById(id);
-            member.HP = HP;
+            member.Hp = HP;
             context.SaveChanges();
         }
 
@@ -346,7 +346,7 @@ namespace Infrastructure
         {
 
             FamilyMember member = GetFamilyMemberById(id);
-            member.ATK = ATK;
+            member.Atk = ATK;
             context.SaveChanges();
         }
 
@@ -361,24 +361,24 @@ namespace Infrastructure
         {
             FamilyMember member1 = SummonFamilyMemberForGame(id,Name);
             FamilyMember member2 = SummonFamilyMemberForGame(id, Name);
-            int hp1 = member1.HP;
-            int hp2 = member2.HP;
+            int hp1 = member1.Hp;
+            int hp2 = member2.Hp;
             while ((hp1 > 0) | (hp2 > 0))
             {
-                hp1 = hp1 - member2.ATK;
-                hp2 = hp2 - member1.ATK;
+                hp1 = hp1 - member2.Atk;
+                hp2 = hp2 - member1.Atk;
             }
             if (hp1 > hp2)
             {
-                EditMemberHP(member1.Id, member1.HP-5);
-                EditMemberATK(member1.Id, member1.ATK + 3);
-                EditMemberHP(member2.Id, member2.HP - 13);
+                EditMemberHP(member1.Id, member1.Hp -5);
+                EditMemberATK(member1.Id, member1.Atk + 3);
+                EditMemberHP(member2.Id, member2.Hp - 13);
             }
             else
             {
-                EditMemberHP(member2.Id, member2.HP - 5);
-                EditMemberATK(member2.Id, member2.ATK + 3);
-                EditMemberHP(member1.Id, member1.HP - 13);
+                EditMemberHP(member2.Id, member2.Hp - 5);
+                EditMemberATK(member2.Id, member2.Atk + 3);
+                EditMemberHP(member1.Id, member1.Hp - 13);
             }
         }
 
@@ -388,7 +388,7 @@ namespace Infrastructure
             {
 
                 FamilyMember member = SummonFamilyMemberForGame(id, Name);
-                if (member.HP == 0)
+                if (member.Hp == 0)
                 {
                     context.FamilyMembers.Remove(member);
                     context.SaveChanges();

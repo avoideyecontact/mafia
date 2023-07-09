@@ -18,9 +18,11 @@ public partial class FamilyMember
 
     public int RankId { get; set; }
 
-    public int HP { get; set; }
+    public int Hp { get; set; }
 
-    public int ATK { get; set; }
+    public int Atk { get; set; }
+
+    public virtual MafiaFamily MafiaFamily { get; set; } = null!;
 
     public virtual ICollection<Organization> Organizations { get; set; } = new List<Organization>();
 

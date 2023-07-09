@@ -12,4 +12,6 @@ public partial class MafiaFamily
     public string? Description { get; set; }
 
     public string? ImageUrl { get; set; }
+
+    public virtual ICollection<FamilyMember> FamilyMembers { get; set; } = new List<FamilyMember>();
 }

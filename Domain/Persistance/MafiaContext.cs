@@ -29,7 +29,7 @@ public partial class MafiaContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseNpgsql("Server=localhost; Port=5432; DataBase=Mafia; Integrated Security=false; User ID=postgres; Password=super");
+        => optionsBuilder.UseNpgsql("Server=localhost; Port=5432; DataBase=Mafia; Integrated Security=false; User ID=postgres; Password=L8mNP79Q");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -38,10 +38,17 @@ public partial class MafiaContext : DbContext
             entity.HasKey(e => e.Id).HasName("FamilyMembers_pkey");
 
             entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.Atk).HasColumnName("ATK");
             entity.Property(e => e.FirstName).HasMaxLength(50);
+            entity.Property(e => e.Hp).HasColumnName("HP");
             entity.Property(e => e.MafiaFamilyId).HasColumnName("MafiaFamily_Id");
             entity.Property(e => e.RankId).HasColumnName("Rank_ID");
             entity.Property(e => e.SecondName).HasMaxLength(50);
+
+            entity.HasOne(d => d.MafiaFamily).WithMany(p => p.FamilyMembers)
+                .HasForeignKey(d => d.MafiaFamilyId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FamilyMembers_MafiaFamily_Id_fkey");
 
             entity.HasOne(d => d.Rank).WithMany(p => p.FamilyMembers)
                 .HasForeignKey(d => d.RankId)
