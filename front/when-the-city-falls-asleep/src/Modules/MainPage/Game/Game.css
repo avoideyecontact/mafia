@@ -1,0 +1,61 @@
+#game {
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+    height: 800px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url(../../../../public/Img/Game/game-bg.jpg);
+    background-size: cover;
+}
+#game button {
+    border: none;
+    padding: 20px;
+    font-size: 30px;
+    color: white;
+    background-color: #B01926;
+    cursor: pointer;
+    transition: all 0.3s;
+    z-index: 3;
+    box-shadow: 0px 4px 4px 0px #00000040 inset;
+    font-family:"Roboto Condensed", Arial, Helvetica, sans-serif;
+}
+#game button:hover {
+    color: #B01926;
+    background-color: white;
+    border: 5px solid #B01926;
+    box-sizing: border-box;
+    transition: all 0.3s;
+}
+#crosshair {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    user-select: none;
+    pointer-events: none;
+    top: 50%;
+    left: 50%;
+    z-index: 2;
+    display: none;
+}
+#score {
+    display: none;
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    font-size: 40px;
+    user-select: none;
+    font-family:"Roboto Condensed", Arial, Helvetica, sans-serif;
+}
+#healthbar {
+    display: none;
+    position: absolute;
+    top: 50px;
+    width: 200px;
+    height: 30px;
+    background-color: grey;
+}
+#health {
+    height: 100%;
+    background-color: red;
+}
