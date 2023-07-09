@@ -39,10 +39,23 @@
     display: none;
 }
 #score {
+    display: none;
     position: absolute;
     top: 25px;
     right: 25px;
     font-size: 40px;
     user-select: none;
     font-family:"Roboto Condensed", Arial, Helvetica, sans-serif;
+}
+#healthbar {
+    display: none;
+    position: absolute;
+    top: 50px;
+    width: 200px;
+    height: 30px;
+    background-color: grey;
+}
+#health {
+    height: 100%;
+    background-color: red;
 }
