@@ -14,9 +14,13 @@ const MainPageModal = (props) => {
             e.target[0].placeholder = "Вы ввели слишком длинное название"
             return
         }
-        if(Number(e.target[0].value) !== typeof(1) || Number(e.target[0].value) > 0  && Number(e.target[0].value) < 2**31){
+        if(Number(e.target[0].value) > 0  && Number(e.target[0].value) < 2**31){
             setIncome("")
             e.target[1].placeholder = "Вы ввели неправильное значение"
+            return
+        }
+        if(currentCompany.id === -1){
+            setCurrentCompany({name:"Вы не выбрали семью",id:-1})
             return
         }
         axios.post('/AddOrganization', {
