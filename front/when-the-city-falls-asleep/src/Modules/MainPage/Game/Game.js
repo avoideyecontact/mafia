@@ -8,6 +8,9 @@ const Game = () => {
 
     function addPolice() {
         var game = gameRef.current;
+        if (!game) {
+            return;
+        }
         if (game.querySelectorAll('img').length >= 9)
         {
             return;
