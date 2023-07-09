@@ -75,7 +75,7 @@ nav a {
 
   justify-content: center;
   align-items: center;
-  z-index: 100;
+  z-index: 100009;
 
   display: none;
 }
@@ -150,32 +150,7 @@ nav a {
   align-items: center;
 }
 
-.modal-form__content input{
-  width: 868px;
-  height: 71px;
-  box-sizing: border-box;
-  margin-bottom: 50px;
-  border-radius: 10px;
-  color: rgba(0, 0, 0, 0.50);
-  text-align: center;
-  font-family: Roboto Condensed;
-  font-size: 40px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
-}
-.modal-form-chooser{
-  color: rgba(0, 0, 0, 0.50);
-  text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: Roboto Condensed;
-  font-size: 40px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
-  background: #FFFFFF;
+.modal-form__content input {
   width: 868px;
   height: 71px;
   box-sizing: border-box;
@@ -664,7 +639,6 @@ a{
   padding: 40px;
   position: relative;
 
-
   &-header{
     display: flex;
     align-items: center;
@@ -722,100 +696,4 @@ a{
   ::-webkit-scrollbar-thumb:hover {
     background: #555;
   }
-}
-
-// Арбуз не варит? Попробуй мини игру
-.tired {
-  background-color: #15060A;
-  margin: 0;
-  color: white;
-  font-family: 'Roboto Condensed', Arial, Helvetica, sans-serif;
-  font-size: 60px;
-  font-weight: 500;
-  line-height: 70px;
-  text-align: center;
-  padding: 66px 0 65px 0;
-}
-
-.main-page-selector{
-  height: 200px;
-  width: 800px;
-  background: #FFFDF0;
-  overflow-y: scroll;
-  &-item{
-    color: black;
-    border-bottom: 2px solid black;
-    cursor: pointer;
-    &:hover{
-      background: #FFFFFF;
-    }
-  }
-}
-.top-positioned{
-  position: absolute;
-  top: 710px;
-}
-.visible{
-  display: block;
-}
-.options-boss-subtitle{
-  text-align: center;
-}
-.select-family{
-  width: 610px;
-  height: 71px;
-  background: black;
-  color: #FFFFFF;
-  border-radius: 20px;
-  margin: 50px auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: 0.2s all;
-}
-.select-family:hover{
-  color: black;
-  background: white;
-  -webkit-box-shadow:inset 0px 0px 0px 2px black;
-  -moz-box-shadow:inset 0px 0px 0px 2px black;
-  box-shadow:inset 0px 0px 0px 2px black;
-}
-
-.options-position{
-  position: absolute;
-  margin-left: auto;
-  margin-right: auto;
-  left: 0;
-  right: 0;
-  text-align: center;
-  top: 1080px;
-  z-index: 10;
-}
-.options-selector-list-item-close{
-  position: relative;
-}
-.options-selector-list-item-close::after {
-  content: 'x';
-  position: absolute;
-  font-size: 45px;
-  color: red;
-  width: 20px;
-  height: 20px;
-  left: 1000px;
-  top: -90px;
-  background-repeat: no-repeat;
-  cursor: pointer;
-}
-.options-selector-error{
-  text-align: center;
-  font-size:60px;
-}
-.underlined{
-  border-bottom: 2px black solid;
-  transition: 0.3s all;
-  cursor: pointer;
-}
-.underlined:hover{
-  color: red;
 }
