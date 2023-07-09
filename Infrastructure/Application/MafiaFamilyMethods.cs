@@ -135,7 +135,6 @@ namespace Infrastructure
         {
             context.Add(new MafiaFamily
             {
-                Id = context.MafiaFamilies.Count() + 1,
                 Name = Name,
                 Description = "Эта семья молодая, мы ничего о ней пока не знаем",
                 ImageUrl = "../Img/NonameFamily.png"

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Domain.Enums;
 
 namespace Domain.Entities;
 
@@ -17,6 +16,8 @@ public partial class FamilyMember
     public int Age { get; set; }
 
     public int RankId { get; set; }
+
+    public virtual MafiaFamily MafiaFamily { get; set; } = null!;
 
     public virtual ICollection<Organization> Organizations { get; set; } = new List<Organization>();
 

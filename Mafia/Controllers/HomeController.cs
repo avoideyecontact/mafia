@@ -109,9 +109,9 @@ namespace Mafia.Controllers
           FamilyMembers Queries
         */
         //---GET
-        public string GetFamilyMembers()
+        public string GetAllFamilyMembers()
         {
-            return JsonSerializer.Serialize(Infrastructure.FamilyMemberMethods.GetFamilyMembers(), options);
+            return JsonSerializer.Serialize(Infrastructure.FamilyMemberMethods.GetAllFamilyMembers(), options);
         }
 
         public string GetFamilyMemberById(int id)

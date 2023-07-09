@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text.Json.Serialization;
 using Domain.Enums;
 
 namespace Domain.Entities;
@@ -25,7 +24,6 @@ public partial class Organization
 
     public string? ImageUrl { get; set; }
 
-    [JsonIgnore]
     public virtual FamilyMember? Collector { get; set; }
 
     public virtual OrganizationType? OrganizationType { get; set; }

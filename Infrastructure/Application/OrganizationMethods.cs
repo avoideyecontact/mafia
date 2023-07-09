@@ -58,12 +58,11 @@ namespace Infrastructure
 
             context.Organizations.Add(new Organization
             {
-                Id = context.Organizations.Count() + 1,
                 OrganizationTypeId = 5,
                 Name = Name,
                 Description = "Мы пока что мало знаем о данной организации",
                 Income = Income,
-                Expenses = Income / new Random(1).Next(10),
+                Expenses = Income / 1 + new Random(1).Next(10),
                 Percent = 10,
                 CollectorId = FamilyId == null || membersCount == 0 ? null : members[new Random(1).Next(members.Count) % membersCount].Id,
                 ImageUrl = "../Img/NonameCompany.png"
@@ -75,34 +74,6 @@ namespace Infrastructure
             catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
-            }
-        }
-
-        public static void AddOrganization(int id, int OrganizationTypeId, string Name, string Description,
-            int Income, int Expences, int Percent, int CollectorId, string ImageURL)
-        {
-            if (Percent > 0 && Percent < 100)
-            {
-                context.Organizations.Add(new Organization
-                {
-                    Id = id,
-                    OrganizationTypeId = OrganizationTypeId,
-                    Name = Name,
-                    Description = Description,
-                    Income = Math.Abs(Income),
-                    Expenses = Math.Abs(Expences),
-                    Percent = Percent,
-                    CollectorId = CollectorId,
-                    ImageUrl = ImageURL
-                });
-                try
-                {
-                    context.SaveChanges();
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"{ex.Message}");
-                }
             }
         }
 
@@ -179,7 +150,15 @@ namespace Infrastructure
         {
             try
             {
-                GetOrganizationById(id).CollectorId = CollectorId;
+                Organization org = GetOrganizationById(id);
+                if (org.CollectorId != null)
+                {
+                    FamilyMember Collector = FamilyMemberMethods.GetFamilyMemberById((int)org.CollectorId);
+                    Collector.Organizations.Remove(org);
+                }
+                org.CollectorId = CollectorId;
+                FamilyMember newCollector = FamilyMemberMethods.GetFamilyMemberById((int)org.CollectorId);
+                newCollector.Organizations.Add(org);
                 context.SaveChanges();
             }
             catch (Exception ex)

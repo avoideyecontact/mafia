@@ -13,7 +13,7 @@ namespace Infrastructure
         private static readonly MafiaContext context = MafiaContext.getInstance();
 
         //---GET
-        public static List<FamilyMember> GetFamilyMembers()
+        public static List<FamilyMember> GetAllFamilyMembers()
         {
             return context.FamilyMembers.ToList();
         }
@@ -34,7 +34,6 @@ namespace Infrastructure
         {
             context.FamilyMembers.Add(new FamilyMember
             {
-                Id = context.FamilyMembers.Count() + 1,
                 MafiaFamilyId = MafiaFamilyId,
                 FirstName = FirstName,
                 SecondName = SecondName,
