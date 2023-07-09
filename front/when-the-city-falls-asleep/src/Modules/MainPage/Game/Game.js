@@ -48,8 +48,6 @@ const Game = () => {
 
         var newMafia = document.createElement("img");
         newMafia.src = "Img/Game/boss.png";
-        newMafia.width = 150;
-        newMafia.height = 175;
         newMafia.classList.add("mafia");
         
         newMafia.onload = function() {
@@ -125,6 +123,21 @@ const Game = () => {
     const scoreElementRef = useRef(null);
     const healthbarRef = useRef(null);
 
+    const [items, setItems] = useState([]);
+
+    const addItem = (path) => {
+        const newItem = {
+            src: path,
+            x: Math.round(Math.random() * 20),
+            y: Math.round(Math.random() * 20),
+        };
+        if (newItem) {
+          setItems([...items, newItem]);
+        }
+      };
+
+
+
     return (
 
         <div id="game" ref={gameRef}>
@@ -134,6 +147,13 @@ const Game = () => {
             <div id='healthbar' ref={healthbarRef}>
                 <div id='health' style={{width: health+"%"}}></div>
             </div>
+            <button onClick={addItem}>Добавить элемент</button>
+            <ul>
+                {items.map((item, index) => (
+                <img key={index} src={item.src}/>
+                ))}
+            </ul>
+
         </div>
 
   );
