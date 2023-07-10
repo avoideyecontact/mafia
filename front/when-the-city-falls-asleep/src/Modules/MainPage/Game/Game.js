@@ -10,12 +10,13 @@ const Game = () => {
         if (!game) {
             return;
         }
-        if (game.querySelectorAll("img").length >= 9) {
+        if (game.querySelectorAll(".cop").length >= 8) {
             return;
         }
 
         var newCop = document.createElement("img");
         newCop.src = "Img/Game/cop.png";
+        newCop.className = 'cop';
 
         newCop.onload = function () {
             var x = Math.random() * (game.offsetWidth - newCop.width);
@@ -29,6 +30,7 @@ const Game = () => {
 
         newCop.addEventListener("click", function () {
             setScore((score) => score + 1);
+            this.style.opacity = '0';
             this.remove();
         });
     }
@@ -38,13 +40,13 @@ const Game = () => {
         if (!game) {
             return;
         }
-        if (game.querySelectorAll("img").length >= 9) {
+        if (game.querySelectorAll(".mafia").length >= 4) {
             return;
         }
 
         var newMafia = document.createElement("img");
         newMafia.src = "Img/Game/boss.png";
-        newMafia.classList.add("mafia");
+        newMafia.className = 'mafia';
 
         newMafia.onload = function () {
             var x = Math.random() * (game.offsetWidth - newMafia.width);
@@ -81,6 +83,7 @@ const Game = () => {
         addPolice();
         setInterval(addPolice, 1000);
         setInterval(addMafia, 2000);
+        setHealth(100);
     }
 
     useEffect(() => {
@@ -101,11 +104,34 @@ const Game = () => {
         };
     }, []);
 
+
+    function gameOver() {
+        var game = gameRef.current;
+        var startButton = startButtonRef.current;
+        var crosshair = crosshairRef.current;
+        var scoreElement = scoreElementRef.current;
+        var healthbar = healthbarRef.current;
+        setIsRunning(false);
+        game.style.cursor = "default";
+        startButton.style.display = "block";
+        crosshair.style.display = "none";
+        scoreElement.style.display = "none";
+        healthbar.style.display = "none";
+        removeDudes();
+    }
+
+    function removeDudes() {
+        const mafiaImages = document.querySelectorAll('.mafia');
+        mafiaImages.forEach(image => image.remove());
+        const copImages = document.querySelectorAll('.cop');
+        copImages.forEach(image => image.remove());
+    }
+
     const [health, setHealth] = useState(100);
 
         useEffect(() => {
-            if (health <= 0.01) {
-                alert("gameover");
+            if (health <= 1) {
+                gameOver();
             }
         }, [health]);
 
