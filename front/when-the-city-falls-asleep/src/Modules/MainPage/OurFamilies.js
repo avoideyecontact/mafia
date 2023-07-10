@@ -1,18 +1,18 @@
 import React from 'react';
-import {Link} from "react-router-dom";
+import ScrollingLink from './ScrollingLink';
 
-
-function OurFamilies() {
-    return (
-        <Link to="/families" className="our-families">
-            <span>НАШИ СЕМЬИ  НАШИ СЕМЬИ  НАШИ СЕМЬИ</span>
-            <span>НАШИ СЕМЬИ  НАШИ СЕМЬИ  НАШИ СЕМЬИ</span>
-            <span>НАШИ СЕМЬИ  НАШИ СЕМЬИ  НАШИ СЕМЬИ</span>
-            <span>НАШИ СЕМЬИ  НАШИ СЕМЬИ  НАШИ СЕМЬИ</span>
-            <span>НАШИ СЕМЬИ  НАШИ СЕМЬИ  НАШИ СЕМЬИ</span>
-            <img src='../Img/OurFamilies.png'/>
-        </Link>
-    );
-}
+const OurFamilies = () => {
+  return (
+    <div>
+      <ScrollingLink to="/families">
+        <span>НАШИ СЕМЬИ  НАШИ СЕМЬИ  НАШИ СЕМЬИ</span>
+        <span>НАШИ СЕМЬИ  НАШИ СЕМЬИ  НАШИ СЕМЬИ</span>
+        <span>НАШИ СЕМЬИ  НАШИ СЕМЬИ  НАШИ СЕМЬИ</span>
+        <span>НАШИ СЕМЬИ  НАШИ СЕМЬИ  НАШИ СЕМЬИ</span>
+        <span>НАШИ СЕМЬИ  НАШИ СЕМЬИ  НАШИ СЕМЬИ</span>
+      </ScrollingLink>
+    </div>
+  );
+};
 
 export default OurFamilies;
