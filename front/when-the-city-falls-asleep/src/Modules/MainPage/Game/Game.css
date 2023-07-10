@@ -47,6 +47,37 @@
     user-select: none;
     font-family:"Roboto Condensed", Arial, Helvetica, sans-serif;
 }
+#score.final {
+    color: #B01926;
+    text-align: center;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 250px;
+    margin: 0 auto;
+    width: 350px;
+    border: none;
+    font-size: 30px;
+    transition: all 0.3s;
+    background-color: white;
+    border: 5px solid #B01926;
+    box-sizing: border-box;
+    transition: all 0.5s;
+    font-family:"Roboto Condensed", Arial, Helvetica, sans-serif;
+}
+#score.final::after {
+    content: "Не пали по своим, браток";
+    color: white;
+    background-color: #B01926;
+    position: absolute;
+    top: -120px;
+    left: calc(-50vw + 170px);
+    width: 100vw;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    transition: all 0.5s;
+    font-family:"Roboto Condensed", Arial, Helvetica, sans-serif;
+}
 #healthbar {
     display: none;
     position: absolute;

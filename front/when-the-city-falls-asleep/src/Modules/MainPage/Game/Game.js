@@ -4,6 +4,22 @@ import "./Game.css";
 const Game = () => {
     const [score, setScore] = useState(0);
     const [isRunning, setIsRunning] = useState(false);
+    const [copSpawn, setCopSpawn] = useState(null);
+    const [mafiaSpawn, setMafiaSpawn] = useState(null);
+
+    const gameRef = useRef(null);
+    const startButtonRef = useRef(null);
+    const crosshairRef = useRef(null);
+    const scoreElementRef = useRef(null);
+    const healthbarRef = useRef(null);
+
+    const [health, setHealth] = useState(100);
+
+        useEffect(() => {
+            if (health <= 1) {
+                gameOver();
+            }
+        }, [health]);
 
     function addPolice() {
         var game = gameRef.current;
@@ -77,13 +93,40 @@ const Game = () => {
         crosshair.style.left = "0";
         crosshair.style.display = "block";
         scoreElement.style.display = "block";
+        scoreElement.className = '';
         healthbar.style.display = "block";
         addPolice();
         addPolice();
         addPolice();
-        setInterval(addPolice, 1000);
-        setInterval(addMafia, 2000);
+        setCopSpawn(setInterval(addPolice, 1000));
+        setMafiaSpawn(setInterval(addMafia, 2000));
         setHealth(100);
+        setScore(0);
+    }
+
+    function gameOver() {
+        var game = gameRef.current;
+        var startButton = startButtonRef.current;
+        var crosshair = crosshairRef.current;
+        var scoreElement = scoreElementRef.current;
+        var healthbar = healthbarRef.current;
+        setIsRunning(false);
+        game.style.cursor = "default";
+        startButton.style.display = "block";
+        crosshair.style.display = "none";
+        // scoreElement.style.display = "none";
+        scoreElement.className = 'final';
+        healthbar.style.display = "none";
+        clearInterval(copSpawn);
+        clearInterval(mafiaSpawn);
+        removeDudes();
+    }
+
+    function removeDudes() {
+        const mafiaImages = document.querySelectorAll('.mafia');
+        mafiaImages.forEach(image => image.remove());
+        const copImages = document.querySelectorAll('.cop');
+        copImages.forEach(image => image.remove());
     }
 
     useEffect(() => {
@@ -105,41 +148,6 @@ const Game = () => {
     }, []);
 
 
-    function gameOver() {
-        var game = gameRef.current;
-        var startButton = startButtonRef.current;
-        var crosshair = crosshairRef.current;
-        var scoreElement = scoreElementRef.current;
-        var healthbar = healthbarRef.current;
-        setIsRunning(false);
-        game.style.cursor = "default";
-        startButton.style.display = "block";
-        crosshair.style.display = "none";
-        scoreElement.style.display = "none";
-        healthbar.style.display = "none";
-        removeDudes();
-    }
-
-    function removeDudes() {
-        const mafiaImages = document.querySelectorAll('.mafia');
-        mafiaImages.forEach(image => image.remove());
-        const copImages = document.querySelectorAll('.cop');
-        copImages.forEach(image => image.remove());
-    }
-
-    const [health, setHealth] = useState(100);
-
-        useEffect(() => {
-            if (health <= 1) {
-                gameOver();
-            }
-        }, [health]);
-
-    const gameRef = useRef(null);
-    const startButtonRef = useRef(null);
-    const crosshairRef = useRef(null);
-    const scoreElementRef = useRef(null);
-    const healthbarRef = useRef(null);
 
     return (
         <div id="game" ref={gameRef}>
