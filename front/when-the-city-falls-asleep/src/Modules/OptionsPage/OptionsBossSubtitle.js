@@ -1,11 +1,32 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import OptionsBossSubtitleItem from "./OptionsBossSubtitleItem";
 import OptionsFamilyModal from "./OptionsFamilyModal";
-
+import axios from 'axios';
 const OptionsBossSubtitle = (props) => {
-    const families = [{name:"Семья аль капоне",id:1,income:2000},{name:"Семья Борисовых",id:2,income:20200},{name:"Семья Ландышевых",id:3,income:6666},{name:"Семья аль капоне",id:4,income:2000}]
+    const baseURL = "https://localhost:7117/Home/GetAllMafiaFamilies"
+    const calculateURL="https://localhost:7117/Home/CalculateFamilyIncomeByFamilyId"
+    const [families,setFamilies] = useState([{}])
+    const [income,setIncome] = useState()
     const [visibility,setVisibility] = useState("closed")
     const [familyModalVisibility,setFamilyModalVisibility] = useState("closed")
+    useEffect(()=>{
+        axios.get(baseURL).then((response) => {
+            setFamilies(Array.from(response.data));
+            console.log(response.data);
+        }).catch((e)=>{
+            console.log(e)
+        })
+    },[visibility])
+    useEffect(()=>{
+        if (props.id!=-1){
+            axios.get(calculateURL + "?id=" + props.currentFamilyId).then((response) => {
+                setIncome((response.data));
+                console.log(response.data);
+            }).catch((e)=>{
+                console.log(e)
+            })
+        }  
+    },[props.currentFamilyId])
     return (
         <>
             <div className="select-family" onClick={(e)=>{
@@ -14,9 +35,9 @@ const OptionsBossSubtitle = (props) => {
             <div className={"main-page-selector options-position " + visibility }>
                 {
                     families.map((family)=>{
-                        return <OptionsBossSubtitleItem name={family.name}
-                                                        id={family.id}
-                                                        income={family.income}
+                        return <OptionsBossSubtitleItem name={family.Name}
+                                                        id={family.Id}
+                                                        income={family.Income}
                                                         setVisibility={setVisibility}
                                                         setCurrentFamily={props.setCurrentFamily} />
                     })
@@ -26,7 +47,7 @@ const OptionsBossSubtitle = (props) => {
             {
                 props.currentFamilyName!=="Выберете семью"?
                 <div className="options-boss-subtitle">
-                    Её годовой доход составляет: {props.income} $
+                    Её годовой доход составляет: {income} $
                 </div>:null
             }
             <br/>

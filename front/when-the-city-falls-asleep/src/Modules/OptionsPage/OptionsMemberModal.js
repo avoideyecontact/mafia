@@ -1,7 +1,10 @@
 import React, {useState} from 'react';
+import axios from "axios";
 
 const OptionsMemberModal = (props) => {
-    const [member,setMember] = useState()
+    const baseURL="/Home/AddFamilyMember?MafiaFamilyid=&FirstName&SecondName=&Age=&RankId="
+    const [memberName,setMemberName] = useState()
+    const [memberSurname,setMemberSurname] = useState()
     return (
         <div>
             <div className={"modal-form " + props.visibility}>
@@ -15,13 +18,24 @@ const OptionsMemberModal = (props) => {
                     <form action="#"
                           onSubmit={(e) => {
                               e.preventDefault()
-                              console.log(e.target[0].value)
+                              axios.post(baseURL+
+                                  "MafiaFamilyid=" + props.currentFamilyId +
+                                  "&FirstName=" + memberName +
+                                  "&SecondName=" + memberSurname)
+                                  .catch((e)=>{
+                                      console.log(e)
+                                  })
                           }
                           }>
-                        <input type="text" placeholder="Имя участника" value={member} required
+                        <input type="text" placeholder="Имя участника" value={memberName} required
                                onChange={(e) => {
                                    e.preventDefault()
-                                   setMember(e.target.value)
+                                   setMemberName(e.target.value)
+                               }}/>
+                        <input type="text" placeholder="Имя участника" value={memberSurname} required
+                               onChange={(e) => {
+                                   e.preventDefault()
+                                   setMemberSurname(e.target.value)
                                }}/>
 
                         <button className="modal-form-button" type="submit">Отправить

@@ -819,3 +819,13 @@ a{
 .underlined:hover{
   color: red;
 }
+.error-page{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  background: black;
+  color: white;
+  font-size: 50px;
+}

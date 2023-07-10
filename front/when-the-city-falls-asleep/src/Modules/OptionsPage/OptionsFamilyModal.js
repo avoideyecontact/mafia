@@ -1,7 +1,10 @@
 import React, {useState} from 'react';
 import MainPageModalSelector from "../MainPage/MainPageModalSelector";
+import axios from "axios";
 
 const OptionsFamilyModal = (props) => {
+    const baseURL="/Home/AddMafiaFamily?Name="
+    // Сюда URL добавления семьи
     const [familyName,setFamilyName] = useState()
     return (
         <div>
@@ -16,7 +19,9 @@ const OptionsFamilyModal = (props) => {
                     <form action="#"
                           onSubmit={(e) => {
                               e.preventDefault()
-                              console.log(e.target[0].value)
+                              axios.post(baseURL + familyName).catch((e)=>{
+                                  console.log(e)
+                              })
                             }
                           }>
                         <input type="text" placeholder="Введите имя огранизации" value={familyName} required

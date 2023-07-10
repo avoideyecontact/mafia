@@ -12,6 +12,7 @@ import {
 import CompaniesPage from "./Pages/CompaniesPage";
 import FamiliesPage from "./Pages/FamiliesPage";
 import OptionsPage from "./Pages/OptionsPage";
+import NotFound from "./Pages/NotFound";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
                 <Route exact path="/companies" element={<CompaniesPage/>}/>
                 <Route exact path="/families" element={<FamiliesPage/>}/>
                 <Route exact path="/options" element={<OptionsPage/>}/>
+                <Route path='*' element={<NotFound/>} />
             </Routes>
 
 

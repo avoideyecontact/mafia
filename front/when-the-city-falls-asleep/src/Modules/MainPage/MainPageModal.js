@@ -7,6 +7,7 @@ const MainPageModal = (props) => {
     const [income,setIncome] = useState()
     const [visibilityOfSelector,setVisibilityOfSelector] = useState("closed")
     const [currentCompany,setCurrentCompany] = useState({name:"Выберете семью",id:-1})
+    const baseURL = "https://localhost:7117/Home"
     function post(e){
         e.preventDefault()
         if(typeof(e.target[0].value) !== typeof("") || e.target[0].value.length > 50 ){
@@ -14,7 +15,7 @@ const MainPageModal = (props) => {
             e.target[0].placeholder = "Вы ввели слишком длинное название"
             return
         }
-        if(Number(e.target[0].value) > 0  && Number(e.target[0].value) < 2**31){
+        if(Number(e.target[0].value) < 0  && Number(e.target[0].value) > 2**31){
             setIncome("")
             e.target[1].placeholder = "Вы ввели неправильное значение"
             return
@@ -23,11 +24,7 @@ const MainPageModal = (props) => {
             setCurrentCompany({name:"Вы не выбрали семью",id:-1})
             return
         }
-        axios.post('/AddOrganization', {
-            Name: e.target[0].value,
-            Income: e.target[1].value,
-            FamilyId:currentCompany.id
-            })
+        axios.post(baseURL+'/AddOrganization?Name=' + e.target[0].value + "&Income=" + e.target[1].value +  "&FamilyId=" + currentCompany.id)
             .then(function (response) {
                 console.log(response);
             })

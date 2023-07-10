@@ -1,13 +1,17 @@
+import axios from 'axios';
 import React, {useState} from 'react';
 
-const OptionSelectorItem = () => {
-    const [deleted,setDeleted] = useState(0)
+const OptionSelectorItem = (props) => {
+    const baseURL = "/Home/DeleteOrganizationById?id="
+    function handleDelete(){
+        axios.delete(baseURL + props.id).catch((e)=>{
+            console.log(e)
+        })
+    }
     return (
         <div className="options-selector-list-item">
-            <p className="options-selector-list-item-title">Магнит , Годовая прибыль : 2000$</p>
-            <span className="options-selector-list-item-close" onClick={(e)=>{
-                alert("Я жив")
-            }}></span>
+            <p className="options-selector-list-item-title">{props.name}</p>
+            <span className="options-selector-list-item-close" onClick={handleDelete}></span>
         </div>
     );
 };
