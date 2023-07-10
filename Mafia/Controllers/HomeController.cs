@@ -156,24 +156,21 @@ namespace Mafia.Controllers
 
         //get
         //edit
-        public void EditMemberATK(int id, int ATK)
+        public void EditMemberATK(int id, int ATK, string Name)
         {
             Infrastructure.Methods.EditMemberATK( id,  ATK);
         }
-        public void EditMemberHP(int id, int HP)
+        public void EditMemberHP(int id, int HP, string Name)
         {
             Infrastructure.Methods.EditMemberATK(id, HP);
         }
         //battle and punishment
-        public static void FightingBattle(int id, string Name, int HP, int ATK)
+        public static void FightingBattle(int id1, string Name1, int id2, string Name2)
         {
             Infrastructure.Methods.FightingBattle(id, Name, HP, ATK);
         }
 
-        public static void DeleteFamilyMemberByHP(int id, string Name, int HP, int ATK)
-        {
-            Infrastructure.Methods.DeleteFamilyMemberByHP( id,  Name,  HP, ATK);
-        }
+       
         /// </game>
         /// 
        

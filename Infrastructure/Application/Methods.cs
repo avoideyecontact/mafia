@@ -334,19 +334,19 @@ namespace Infrastructure
         */
         // для игры
 
-        public static void EditMemberHP(int id, int HP)
+        public static void EditMemberHP(int id, int HP, string Name)
         {
 
-            FamilyMember member = GetFamilyMemberById(id);
-            member.Hp = HP;
+            FamilyMember member = SummonFamilyMemberForGame(id, Name);
+            member.SetHP(HP);
             context.SaveChanges();
         }
 
-        public static void EditMemberATK(int id, int ATK)
+        public static void EditMemberATK(int id, int ATK, string Name)
         {
 
-            FamilyMember member = GetFamilyMemberById(id);
-            member.Atk = ATK;
+            FamilyMember member = SummonFamilyMemberForGame(id, Name);
+            member.SetATK(ATK);
             context.SaveChanges();
         }
 
@@ -357,10 +357,10 @@ namespace Infrastructure
 
         }
 
-        public static void FightingBattle(int id,string Name,int HP,int ATK)
+        public static void FightingBattle(int id1,string Name1, int id2, string Name2)
         {
-            FamilyMember member1 = SummonFamilyMemberForGame(id,Name);
-            FamilyMember member2 = SummonFamilyMemberForGame(id, Name);
+            FamilyMember member1 = SummonFamilyMemberForGame(id1,Name1);
+            FamilyMember member2 = SummonFamilyMemberForGame(id2, Name2);
             int hp1 = member1.Hp;
             int hp2 = member2.Hp;
             while ((hp1 > 0) | (hp2 > 0))
@@ -370,36 +370,51 @@ namespace Infrastructure
             }
             if (hp1 > hp2)
             {
-                EditMemberHP(member1.Id, member1.Hp -5);
-                EditMemberATK(member1.Id, member1.Atk + 3);
-                EditMemberHP(member2.Id, member2.Hp - 13);
+                EditMemberHP(member1.Id, member1.Hp -5, member1.FirstName);
+                EditMemberATK(member1.Id, member1.Atk + 3, member1.FirstName);
+                EditMemberHP(member2.Id, member2.Hp - 13, member2.FirstName);
             }
             else
             {
-                EditMemberHP(member2.Id, member2.Hp - 5);
-                EditMemberATK(member2.Id, member2.Atk + 3);
-                EditMemberHP(member1.Id, member1.Hp - 13);
+                EditMemberHP(member2.Id, member2.Hp - 5, member2.FirstName);
+                EditMemberATK(member2.Id, member2.Atk + 3, member2.FirstName);
+                EditMemberHP(member1.Id, member1.Hp - 13, member1.FirstName);
             }
-        }
-
-        public static void DeleteFamilyMemberByHP(int id, string Name, int HP, int ATK)
-        {
             try
             {
 
-                FamilyMember member = SummonFamilyMemberForGame(id, Name);
+                FamilyMember member = SummonFamilyMemberForGame(id1, Name1);
                 if (member.Hp == 0)
                 {
                     context.FamilyMembers.Remove(member);
                     context.SaveChanges();
                 }
-                
+
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"{ex.Message}");
             }
+
+            try
+            {
+
+                FamilyMember member = SummonFamilyMemberForGame(id2, Name2);
+                if (member.Hp == 0)
+                {
+                    context.FamilyMembers.Remove(member);
+                    context.SaveChanges();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"{ex.Message}");
+            }
+
         }
+
+       
 
 
     }
