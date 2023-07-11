@@ -38,32 +38,37 @@ namespace Mafia.Controllers
         */
 
         //---GET
-        public string GetAllMafiaFamilies()
+        public ActionResult GetAllMafiaFamilies()
         {
-            return JsonSerializer.Serialize(context.MafiaFamilies.ToList(), options);
+            return Ok(JsonSerializer.Serialize(context.MafiaFamilies.ToList(), options));
         }
-        public string GetMafiaFamilyById(int id)
+        public ActionResult GetMafiaFamilyById(int id)
         {
-            return JsonSerializer.Serialize(context.MafiaFamilies.Where(p => (p.Id == id)).Single(), options);
-        }
-
-        public string GetMafiaFamilyByName(string name)
-        {
-            return JsonSerializer.Serialize(context.MafiaFamilies.Where(p => p.Name == name).Single(), options);
+            MafiaFamily mafiaFamily = context.MafiaFamilies.Where(p => p.Id == id).Single();
+            if (mafiaFamily == null) return NotFound("Не существует семьи под именем " + id);
+            return Ok(JsonSerializer.Serialize(mafiaFamily, options));
         }
 
-        public string GetAllFamilyMembersByMafiaFamiylyId(int id)
+        public ActionResult GetMafiaFamilyByName(string name)
+        {
+            MafiaFamily mafiaFamily = context.MafiaFamilies.Where(p => p.Name == name).Single();
+            if (mafiaFamily == null) return NotFound("Не существует семьи под именем " + name);
+            return Ok(JsonSerializer.Serialize(context.MafiaFamilies.Where(p => p.Name == name).Single(), options));
+        }
+
+        public ActionResult GetAllFamilyMembersByMafiaFamiylyId(int id)
         {
             List<FamilyMember> members = context.FamilyMembers.Where(p => p.MafiaFamilyId == id).ToList();
-            return JsonSerializer.Serialize(members, options);
+            if (members == null) return NotFound("Не найдены участники у семьи под id " + id);
+            return Ok(JsonSerializer.Serialize(members, options));
         }
 
-        public string GetAllOrganizationsByMafiaFamilyId(int id)
+        public ActionResult GetAllOrganizationsByMafiaFamilyId(int id)
         {
             List < FamilyMember > members = context.FamilyMembers.Where(p => p.MafiaFamilyId == id).ToList();
 
             List<Organization> organizations = context.Organizations.ToList();
-            List<Organization> familyOrganizations = new List<Organization>();
+            List<Organization> familyOrganizations = new ();
 
             foreach (Organization organization in organizations)
             {
@@ -75,10 +80,10 @@ namespace Mafia.Controllers
                     }
                 }
             }
-            return JsonSerializer.Serialize(familyOrganizations, options);
+            return Ok(JsonSerializer.Serialize(familyOrganizations, options));
         }
 
-        public string GetAllOrganizationsByMafiaFamilyName(string name)
+        public ActionResult GetAllOrganizationsByMafiaFamilyName(string name)
         {
             List<FamilyMember> members = context.MafiaFamilies.Where(p => (p.Name == name)).Single().FamilyMembers.ToList();
 
@@ -95,10 +100,10 @@ namespace Mafia.Controllers
                     }
                 }
             }
-            return JsonSerializer.Serialize(familyOrganizations, options);
+            return Ok(JsonSerializer.Serialize(familyOrganizations, options));
         }
 
-        public string CalculateFamilyIncomeByFamilyId(int id)
+        public ActionResult CalculateFamilyIncomeByFamilyId(int id)
         {
             List<Organization> familyOrganization = new List<Organization>();
             List<FamilyMember> members = context.FamilyMembers.Where(p => p.MafiaFamilyId == id).ToList();
@@ -119,7 +124,7 @@ namespace Mafia.Controllers
                 sum += (float)(org.Income / 100 * org.Percent);
             }
 
-            return JsonSerializer.Serialize(sum, options); 
+            return Ok(JsonSerializer.Serialize(sum, options)); 
         }
 
         /*
@@ -130,7 +135,7 @@ namespace Mafia.Controllers
         */
         //---GET
         //--POST
-        public void AddMafiaFamily(string Name)
+        public ActionResult AddMafiaFamily(string Name)
         {
             context.Add(new MafiaFamily
             {
@@ -141,39 +146,28 @@ namespace Mafia.Controllers
             try
             {
                 context.SaveChanges();
+                return Ok("Запрос выполнен");
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"{ex.Message}");
+                return BadRequest(ex.Message);
             };
         }
 
-        public void DeleteMafiaFamilyById(int id) 
+        public ActionResult DeleteMafiaFamilyById(int id) 
         {
             try
             {
                 context.Remove(GetMafiaFamilyById(id));
                 context.SaveChanges();
+                return Ok("Запрос выполнен");
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"{ex.Message}");
+                return BadRequest(ex.Message);
             }
-        }
-
-        public void EditMafiaFamilyName(int id, string Name)
-        {
-            Infrastructure.MafiaFamilyMethods.EditMafaFamilyName(id, Name);
-        }
-
-        public void EditMafiaFamilyDescription(int id, string Description)
-        {
-            Infrastructure.MafiaFamilyMethods.EditMafiaFamilyDescription(id, Description);
-        }
-
-        public void EditMafiaFamilyImageUrl(int id, string ImageUrl)
-        {
-            Infrastructure.MafiaFamilyMethods.EditMafiaFamilyImageUrl(id, ImageUrl);
         }
 
         //--POST
@@ -186,20 +180,22 @@ namespace Mafia.Controllers
           FamilyMembers Queries
         */
         //---GET
-        public string GetAllFamilyMembers()
+        public ActionResult GetAllFamilyMembers()
         {
-            return JsonSerializer.Serialize(context.FamilyMembers.ToList(), options);
+            return Ok(JsonSerializer.Serialize(context.FamilyMembers.ToList(), options));
         }
 
-        public string GetFamilyMemberById(int id)
+        public ActionResult GetFamilyMemberById(int id)
         {
-            return JsonSerializer.Serialize(context.FamilyMembers.Where(p => p.Id == id).Single(), options);
+            FamilyMember member = context.FamilyMembers.Where(p => p.Id == id).Single();
+            if (member == null) return NotFound("Такой член семьи не найден");
+            return Ok(JsonSerializer.Serialize(member, options));
         }
 
         //---GET
 
         //--POST
-        public void AddFamilyMember(int MafiaFamilyId, string FirstName, string SecondName, int Age, int RankId)
+        public ActionResult AddFamilyMember(int MafiaFamilyId, string FirstName, string SecondName, int Age, int RankId)
         {
             context.FamilyMembers.Add(new FamilyMember
             {
@@ -212,23 +208,27 @@ namespace Mafia.Controllers
             try
             {
                 context.SaveChanges();
+                return Ok("Запрос выполнен успешно");
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"{ex.Message}");
+                return BadRequest(ex.Message);
             }
         }
 
-        public void DeleteFamilyMemberById(int id)
+        public ActionResult DeleteFamilyMemberById(int id)
         {
             try
             {
                 context.FamilyMembers.Remove(context.FamilyMembers.Where(p => p.Id == id).Single());
                 context.SaveChanges();
+                return Ok("Запрос выполнен успешно");
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"{ex.Message}");
+                return BadRequest(ex.Message);
             }
         }
 
@@ -260,14 +260,15 @@ namespace Mafia.Controllers
           Organizations Queries
         */
         //---GET
-        public string GetAllOrganizations()
+        [HttpGet]
+        public IActionResult GetAllOrganizations()
         {
-            return JsonSerializer.Serialize(context.Organizations.ToList(), options);
+            return Ok(JsonSerializer.Serialize(context.Organizations.ToList().OrderBy(p => p.Id), options));
         }
 
-        public string GetAllOrganizationsWithoutCollector()
+        public ActionResult GetAllOrganizationsWithoutCollector()
         {
-            return JsonSerializer.Serialize(context.Organizations.Where(p => p.CollectorId == null).ToList(), options);
+            return Ok(JsonSerializer.Serialize(context.Organizations.Where(p => p.CollectorId == null).ToList(), options));
         }
 
         public string GetOrganizationById(int id)
@@ -277,7 +278,7 @@ namespace Mafia.Controllers
         //---GET
 
         //--POST
-        public void AddOrganization(string Name, int Income, int? FamilyId = null)
+        public ActionResult AddOrganization(string Name, int Income, int? FamilyId = null)
         {
             int membersCount = 1;
             List<FamilyMember> members = new List<FamilyMember>();
@@ -286,7 +287,8 @@ namespace Mafia.Controllers
                 members = members = context.FamilyMembers.Where(p => p.MafiaFamilyId == FamilyId).ToList();
                 membersCount = (members.Count() == 0 ? 1 : members.Count);
             }
-
+            if (Name.Length <= 0 || Name.Length > 50) return BadRequest("Неправильно введено имя");
+            if (Income < 0) return BadRequest("Неправильно введённый доход");
             context.Organizations.Add(new Organization
             {
                 OrganizationTypeId = 5,
@@ -301,10 +303,12 @@ namespace Mafia.Controllers
             try
             {
                 context.SaveChanges();
+                return Ok("Запрос прошёл успешно");
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
+                return BadRequest(ex.ToString());
             }
         }
 
@@ -316,45 +320,21 @@ namespace Mafia.Controllers
             Income, Expences, Percent, CollectorId, ImageURL);
         }
          */
-
-        public void EditOrganizationTypeId(int id, int OrganizationTypeId)
+        public ActionResult DeleteOrganizationById(int id)
         {
-            Infrastructure.OrganizationMethods.EditOrganizationTypeId(id, OrganizationTypeId);
-        }
-
-        public void EditOrganizationName(int id, string Name)
-        {
-            Infrastructure.OrganizationMethods.EditOrganizationName(id, Name);
-        }
-
-        public void EditOrganizationDescription(int id, string Description)
-        {
-            Infrastructure.OrganizationMethods.EditOrganizationDescription(id, Description);
-        }
-        public void EditOrganizationIncome(int id, int Income)
-        {
-            Infrastructure.OrganizationMethods.EditOrganizationIncome(id, Income);
-        }
-        public void EditOrganizationExpenses(int id, int Expenses)
-        {
-            Infrastructure.OrganizationMethods.EditOrganizationExpenses(id, Expenses);
-        }
-        public void EditOrganizationPercent(int id, int Percent)
-        {
-            Infrastructure.OrganizationMethods.EditOrganizationPercent(id, Percent);
-        }
-        public void EditOrganizationCollectorId(int id, int CollectorId)
-        {
-            Infrastructure.OrganizationMethods.EditOrganizationCollectorId(id, CollectorId);
-        }
-        public static void EditOrganizationImageUrl(int id, string ImageUrl)
-        {
-            Infrastructure.OrganizationMethods.EditOrganizationImageUrl(id, ImageUrl);
-        }
-
-        public void RemoveCollectorFromOrganization(string OrganizationName)
-        {
-            Infrastructure.OrganizationMethods.RemoveCollectorFromOrganization(OrganizationName);
+            try
+            {
+                Organization org = context.Organizations.Where(p => p.Id == id).Single();
+                if (org == null) { return NotFound("Не найдена организация"); }
+                context.Organizations.Remove(org);
+                context.SaveChanges();
+                return Ok("Организация удалена");
+            }
+            catch (Exception ex) 
+            {
+                Console.WriteLine(ex.ToString());
+                return BadRequest(ex.ToString());
+            }
         }
 
 
